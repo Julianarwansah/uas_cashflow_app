@@ -229,3 +229,26 @@ Stack(
     ),
   ],
 )
+Column(
+  children: [
+    Text(
+      "Memuat aplikasi...",
+      style: TextStyle(
+        color: Colors.white.withValues(alpha: 0.9),
+        fontSize: 15,
+      ),
+    ),
+    const SizedBox(height: 8),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(3, (index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        );
+      }),
+    ),
+  ],
+)
