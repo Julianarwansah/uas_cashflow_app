@@ -186,3 +186,46 @@ Stack(
     ),
   ],
 )
+Stack(
+  alignment: Alignment.center,
+  children: [
+    AnimatedBuilder(
+      animation: _rotateController,
+      builder: (context, child) {
+        return Transform.rotate(
+          angle: _rotateController.value * 2 * math.pi,
+          child: Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              gradient: SweepGradient(
+                colors: [
+                  Colors.white.withValues(alpha: 0.0),
+                  Colors.white.withValues(alpha: 0.3),
+                  Colors.white.withValues(alpha: 0.0),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+
+    Container(
+      width: 110,
+      height: 110,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(22),
+      ),
+      child: Center(
+        child: SizedBox(
+          width: 70,
+          height: 70,
+          child: Lottie.asset("assets/animation/Sandy_Loading.json"),
+        ),
+      ),
+    ),
+  ],
+)
