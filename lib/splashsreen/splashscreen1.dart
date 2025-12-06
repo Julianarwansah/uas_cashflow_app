@@ -8,6 +8,59 @@ class SplashScreen1 extends StatefulWidget {
   @override
   State<SplashScreen1> createState() => _SplashScreen1State();
 }
+late AnimationController _fadeController;
+late AnimationController _scaleController;
+late AnimationController _rotateController;
+late AnimationController _pulseController;
+late Animation<double> _fadeAnimation;
+late Animation<double> _scaleAnimation;
+late Animation<double> _pulseAnimation;
+
+@override
+void initState() {
+  super.initState();
+
+  _fadeController = AnimationController(
+    duration: const Duration(milliseconds: 1200),
+    vsync: this,
+  );
+
+  _scaleController = AnimationController(
+    duration: const Duration(milliseconds: 1000),
+    vsync: this,
+  );
+
+  _rotateController = AnimationController(
+    duration: const Duration(seconds: 20),
+    vsync: this,
+  )..repeat();
+
+  _pulseController = AnimationController(
+    duration: const Duration(milliseconds: 1500),
+    vsync: this,
+  )..repeat(reverse: true);
+
+  _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
+  );
+
+  _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
+    CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut),
+  );
+
+  _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
+    CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+  );
+
+  _fadeController.forward();
+  _scaleController.forward();
+
+  Future.delayed(const Duration(seconds: 10), () {
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, '/splash2');
+  });
+}
+
 
 class _SplashScreen1State extends State<SplashScreen1>
     with TickerProviderStateMixin {
