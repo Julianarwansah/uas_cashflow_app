@@ -44,6 +44,11 @@ with TickerProviderStateMixin {
       vsync: this,
     );
 
+    _particleController = AnimationController(
+      duration: const Duration(seconds: 6),
+      vsync: this,
+    )..repeat(reverse: true);
+
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
     );
@@ -58,10 +63,23 @@ with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(parent: _slideController, curve: Curves.easeOut),
     );
+    _particleAnimation = Tween<double>(begin: -20, end: 20).animate(
+      CurvedAnimation(parent: _particleController, curve: Curves.easeInOut),
+    );
 
     _fadeController.forward();
     _scaleController.forward();
     _slideController.forward();
+  }
+
+ Future.delayed(const Duration(seconds: 4), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const SplashScreen3()),
+        );
+      }
+    });
   }
 
   @override
@@ -74,7 +92,6 @@ with TickerProviderStateMixin {
     super.dispose();
   }
 
-  @override
  Widget glowingParticle(double size, int delay) {
     return AnimatedBuilder(
       animation: _particleController,
@@ -139,11 +156,49 @@ with TickerProviderStateMixin {
             ),
           ),
 
+          Container(
+            width: 280,
+            height: 280,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.blue.shade500.withOpacity(0.35),
+                  blurRadius: 50,
+                  spreadRadius: 25,
+                ),
+              ],
+            ),
+          ),
+
           // Floating glowing particles
           Positioned(top: 150, left: 90, child: glowingParticle(18, 3)),
           Positioned(bottom: 180, right: 100, child: glowingParticle(14, 6)),
           Positioned(top: 260, right: 140, child: glowingParticle(22, 1)),
           Positioned(bottom: 240, left: 130, child: glowingParticle(16, 5)),
+
+           // GLASSMORPHISM BLUR CARD
+          Positioned(
+            top: 200,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                child: Container(
+                  width: 260,
+                  height: 260,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.06),
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.15),
+                      width: 1.2,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
 
           ScaleTransition(
             scale: _scaleAnimation,
@@ -158,14 +213,14 @@ with TickerProviderStateMixin {
           ),
 
           // Text
-          Positioned(
+           Positioned(
             bottom: 90,
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: SlideTransition(
                 position: _slideAnimation,
                 child: const Text(
-                  "Loading...",
+                  "Processing...",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -180,4 +235,3 @@ with TickerProviderStateMixin {
       ),
     );
   }
-}
