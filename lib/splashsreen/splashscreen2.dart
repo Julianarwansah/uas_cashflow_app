@@ -13,10 +13,12 @@ with TickerProviderStateMixin {
   late AnimationController _scaleController;
   late AnimationController _rotateController;
   late AnimationController _slideController;
+  late AnimationController _particleController;
 
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
   late Animation<Offset> _slideAnimation;
+  late Animation<double> _particleAnimation;
 
   @override
   void initState() {
@@ -68,7 +70,41 @@ with TickerProviderStateMixin {
     _scaleController.dispose();
     _rotateController.dispose();
     _slideController.dispose();
+    _particleController.dispose();
     super.dispose();
+  }
+
+  @override
+ Widget glowingParticle(double size, int delay) {
+    return AnimatedBuilder(
+      animation: _particleController,
+      builder: (_, child) {
+        return Transform.translate(
+          offset: Offset(
+            _particleAnimation.value + delay * 0.3,
+            _particleAnimation.value - delay * 0.2,
+          ),
+          child: Opacity(
+            opacity: 0.6,
+            child: Container(
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue.shade300.withOpacity(0.6),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue.shade300,
+                    blurRadius: 12,
+                    spreadRadius: 6,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -78,7 +114,7 @@ with TickerProviderStateMixin {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          
+          // Rotating circle (existing)
           AnimatedBuilder(
             animation: _rotateController,
             builder: (_, child) {
@@ -103,14 +139,27 @@ with TickerProviderStateMixin {
             ),
           ),
 
-        
-          const Center(
-            child: Text(
-              "Splash Screen 2",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
+          // Floating glowing particles
+          Positioned(top: 150, left: 90, child: glowingParticle(18, 3)),
+          Positioned(bottom: 180, right: 100, child: glowingParticle(14, 6)),
+          Positioned(top: 260, right: 140, child: glowingParticle(22, 1)),
+          Positioned(bottom: 240, left: 130, child: glowingParticle(16, 5)),
+
+          // Text content
+          SlideTransition(
+            position: _slideAnimation,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: ScaleTransition(
+                scale: _scaleAnimation,
+                child: const Text(
+                  "Splash Screen 2",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
           ),
