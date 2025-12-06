@@ -220,17 +220,42 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       const SizedBox(height: 30),
 
                       ScaleTransition(
-                        scale: scaleAnim,
-                        child: const Text(
-                          "Selamat Datang!",
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            letterSpacing: 0.4,
-                          ),
-                        ),
-                      ),
+  scale: scaleAnim,
+  child: Text(
+    "Selamat Datang!",
+    style: TextStyle(
+      fontSize: 36,
+      fontWeight: FontWeight.w900,
+      color: Colors.white,
+      letterSpacing: 0.5,
+      shadows: [
+        Shadow(
+          color: Colors.black.withOpacity(0.3),
+          offset: const Offset(0, 4),
+          blurRadius: 10,
+        ),
+        Shadow(
+          color: const Color(0xFF60A5FA).withOpacity(0.45),
+          offset: const Offset(0, 0),
+          blurRadius: 18,
+        ),
+      ],
+    ),
+  ),
+),
+
+const SizedBox(height: 8),
+
+Text(
+  "Masuk untuk mulai mengatur keuangan Anda",
+  textAlign: TextAlign.center,
+  style: TextStyle(
+    fontSize: 15,
+    color: Colors.white.withOpacity(0.85),
+    letterSpacing: 0.3,
+  ),
+),
+
 
                       const SizedBox(height: 12),
 
