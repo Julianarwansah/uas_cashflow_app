@@ -80,6 +80,38 @@ c@override
             ),
           ),
 
+          AnimatedBuilder(
+            animation: _particlesController,
+            builder: (context, child) {
+              final random = math.Random();
+              List<Widget> particles = [];
+
+              for (int i = 0; i < 25; i++) {
+                double angle = random.nextDouble() * 2 * math.pi;
+                double radius = 80 + random.nextDouble() * 100;
+                double x = math.cos(angle + _particlesController.value * 2 * math.pi) * radius;
+                double y = math.sin(angle + _particlesController.value * 2 * math.pi) * radius;
+
+                particles.add(
+                  Positioned(
+                    left: MediaQuery.of(context).size.width / 2 + x,
+                    top: MediaQuery.of(context).size.height / 2 + y,
+                    child: Container(
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white.withOpacity(0.3),
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              return Stack(children: particles);
+            },
+          ),
+
           const Text(
             "Splash Screen 3",
             style: TextStyle(
