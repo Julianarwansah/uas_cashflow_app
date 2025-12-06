@@ -7,11 +7,11 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin {
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
   bool hidePassword = true;
-  
+
    late AnimationController fadeCtrl;
   late AnimationController scaleCtrl;
   late Animation<double> fadeAnim;
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
     bool password = false,
   }) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(18),
@@ -58,10 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextField(
         controller: controller,
         obscureText: password ? hidePassword : false,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hint,
+       decoration: InputDecoration(
           icon: Icon(icon, color: Colors.blue),
+          hintText: hint,
+          border: InputBorder.none,
           suffixIcon: password
               ? IconButton(
                   icon: Icon(
@@ -79,37 +79,61 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeTransition(
-        opacity: fadeAnim,
-        child: Center(
-          child: ScaleTransition(
-            scale: scaleAnim,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _inputField(
-                    hint: "Email",
-                    icon: Icons.email,
-                    controller: emailController,
-                  ),
-                  const SizedBox(height: 20),
-                  _inputField(
-                    hint: "Password",
-                    icon: Icons.lock,
-                    controller: passController,
-                    password: true,
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 14),
-                      child: Text("Login"),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF0F172A),
+              Color(0xFF1E3A8A),
+              Color(0xFF3B82F6),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: FadeTransition(
+            opacity: fadeAnim,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              child: Center(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 80),
+
+                    ScaleTransition(
+                      scale: scaleAnim,
+                      child: const Icon(Icons.person, size: 100, color: Colors.white),
                     ),
-                  ),
-                ],
+
+                    const SizedBox(height: 30),
+
+                    _inputField(
+                      hint: "Email / Username",
+                      icon: Icons.email_outlined,
+                      controller: emailController,
+                    ),
+                    const SizedBox(height: 20),
+                    _inputField(
+                      hint: "Password",
+                      icon: Icons.lock_outline,
+                      controller: passController,
+                      password: true,
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                      ),
+                      child: const Text("Masuk"),
+                    ),
+
+                    const SizedBox(height: 80),
+                  ],
+                ),
               ),
             ),
           ),
