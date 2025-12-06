@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     child: child,
                   );
                 },
-                
+
                 child: Center(
                   child: Container(
                     width: 220.0 + (index * 120),
@@ -130,6 +130,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   ),
                 ),
               ),
+
               for (int i = 0; i < 6; i++)
               Positioned(
                 top: 80.0 + i * 100,
@@ -176,12 +177,63 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   child: Column(
                     children: [
                       const SizedBox(height: 40),
-                      ScaleTransition(
-                        scale: scaleAnim,
-                        child: const Icon(Icons.person, size: 96, color: Colors.white),
+                        Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width: 220,
+                            height: 220,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: RadialGradient(
+                                colors: [
+                                  const Color(0xFF60A5FA).withOpacity(0.28),
+                                  Colors.transparent,
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(18),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF3B82F6).withOpacity(0.35),
+                                  blurRadius: 30,
+                                  spreadRadius: 5,
+                                  offset: const Offset(0, 8),
+                                ),
+                              ],
+                            ),
+                            child: Lottie.asset(
+                              "assets/animation/Manage_Money.json",
+                              width: 140,
+                              height: 140,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
                       ),
 
-                    const SizedBox(height: 30),
+                      const SizedBox(height: 30),
+
+                      ScaleTransition(
+                        scale: scaleAnim,
+                        child: const Text(
+                          "Selamat Datang!",
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: 0.4,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+
                       _inputField(
                         hint: "Email / Username",
                         icon: Icons.email_outlined,
@@ -194,8 +246,14 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         controller: passController,
                         password: true,
                       ),
-                      const SizedBox(height: 28),
-                      ElevatedButton(onPressed: () {}, child: const Text("Masuk")),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                        ),
+                        child: const Text("Masuk"),
+                      ),
                     ],
                   ),
                 ),
