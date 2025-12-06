@@ -12,16 +12,27 @@ class _SplashScreen2State extends State<SplashScreen2>
   
   late AnimationController _fadeController;
   late AnimationController _scaleController;
-  
+
+  late AnimationController _scaleController;
+
    @override
   void initState() {
     super.initState();
 
+     // Fade controller & animation
     _fadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
 
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeInOut,
+    );
+
+    _fadeController.forward();
+
+    // Scale controller prepared for next commit
     _scaleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
@@ -39,10 +50,15 @@ class _SplashScreen2State extends State<SplashScreen2>
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: Text(
-          "Loading...",
-          style: TextStyle(color: Colors.white),
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: const Center(
+          child: Text(
+            "Loading...",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );
