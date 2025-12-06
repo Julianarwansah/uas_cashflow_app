@@ -145,19 +145,32 @@ with TickerProviderStateMixin {
           Positioned(top: 260, right: 140, child: glowingParticle(22, 1)),
           Positioned(bottom: 240, left: 130, child: glowingParticle(16, 5)),
 
-          // Text content
-          SlideTransition(
-            position: _slideAnimation,
+          ScaleTransition(
+            scale: _scaleAnimation,
+            child: SizedBox(
+              width: 180,
+              height: 180,
+              child: Lottie.asset(
+                'assets/anim/loading.json',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+
+          // Text
+          Positioned(
+            bottom: 90,
             child: FadeTransition(
               opacity: _fadeAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
                 child: const Text(
-                  "Splash Screen 2",
+                  "Loading...",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    letterSpacing: 1.2,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
