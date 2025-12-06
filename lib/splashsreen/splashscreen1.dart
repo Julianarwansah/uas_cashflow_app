@@ -145,3 +145,44 @@ for (int index = 0; index < 8; index++)
       },
     ),
   ),
+Stack(
+  alignment: Alignment.center,
+  children: [
+    AnimatedBuilder(
+      animation: _pulseAnimation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _pulseAnimation.value * 1.2,
+          child: Container(
+            width: 250,
+            height: 250,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  const Color(0xFF60A5FA).withValues(alpha: 0.3),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    ScaleTransition(
+      scale: _scaleAnimation,
+      child: Container(
+        padding: const EdgeInsets.all(30),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(35),
+        ),
+        child: SizedBox(
+          width: 180,
+          height: 180,
+          child: Lottie.asset('assets/animation/File_Analysis.json'),
+        ),
+      ),
+    ),
+  ],
+)
