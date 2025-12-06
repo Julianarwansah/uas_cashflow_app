@@ -115,3 +115,33 @@ Stack(
       ),
   ],
 )
+for (int index = 0; index < 8; index++)
+  Positioned(
+    top: 50.0 + (index * 80),
+    left: (index % 2 == 0) ? 30.0 : null,
+    right: (index % 2 != 0) ? 30.0 : null,
+    child: TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.0, end: 1.0),
+      duration: Duration(milliseconds: 1500 + (index * 200)),
+      curve: Curves.easeInOut,
+      builder: (context, value, child) {
+        return Opacity(
+          opacity: (value * 0.6).clamp(0.0, 0.6),
+          child: Transform.translate(
+            offset: Offset(0, -20 * value),
+            child: Container(
+              width: 8 + (index % 3) * 4.0,
+              height: 8 + (index % 3) * 4.0,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.3),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        );
+      },
+      onEnd: () {
+        if (mounted) setState(() {});
+      },
+    ),
+  ),
