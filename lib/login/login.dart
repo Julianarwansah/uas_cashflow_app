@@ -11,8 +11,40 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   bool hidePassword = true;
-   Widget _inputField({
-    required String label,
+  
+   late AnimationController fadeCtrl;
+  late AnimationController scaleCtrl;
+  late Animation<double> fadeAnim;
+  late Animation<double> scaleAnim;
+
+  @override
+  void initState() {
+    super.initState();
+
+    fadeCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
+    scaleCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+
+    fadeAnim = Tween<double>(begin: 0, end: 1).animate(fadeCtrl);
+    scaleAnim = Tween<double>(begin: 0.8, end: 1).animate(CurvedAnimation(
+      parent: scaleCtrl,
+      curve: Curves.elasticOut,
+    ));
+
+    fadeCtrl.forward();
+    scaleCtrl.forward();
+  }
+
+  @override
+  void dispose() {
+    fadeCtrl.dispose();
+    scaleCtrl.dispose();
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
+  }
+
+  Widget _inputField({
+    required String hint,
     required IconData icon,
     required TextEditingController controller,
     bool password = false,
@@ -20,20 +52,22 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(18),
       ),
       child: TextField(
         controller: controller,
         obscureText: password ? hidePassword : false,
         decoration: InputDecoration(
-          icon: Icon(icon, color: Colors.blue),
-          hintText: label,
           border: InputBorder.none,
+          hintText: hint,
+          icon: Icon(icon, color: Colors.blue),
           suffixIcon: password
               ? IconButton(
                   icon: Icon(
-                      hidePassword ? Icons.visibility_off : Icons.visibility),
+                    hidePassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.blue,
+                  ),
                   onPressed: () => setState(() => hidePassword = !hidePassword),
                 )
               : null,
@@ -42,51 +76,41 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF0F172A),
-              Color(0xFF1E3A8A),
-              Color(0xFF3B82F6),
-            ],
-          ),
-        ),
+      body: FadeTransition(
+        opacity: fadeAnim,
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _inputField(
-                  label: "Email",
-                  icon: Icons.email,
-                  controller: emailController,
-                ),
-                const SizedBox(height: 15),
-                _inputField(
-                  label: "Password",
-                  icon: Icons.lock,
-                  controller: passController,
-                  password: true,
-                ),
-                const SizedBox(height: 25),
-                ElevatedButton(
+          child: ScaleTransition(
+            scale: scaleAnim,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _inputField(
+                    hint: "Email",
+                    icon: Icons.email,
+                    controller: emailController,
+                  ),
+                  const SizedBox(height: 20),
+                  _inputField(
+                    hint: "Password",
+                    icon: Icons.lock,
+                    controller: passController,
+                    password: true,
+                  ),
+                  const SizedBox(height: 30),
+                  ElevatedButton(
                     onPressed: () {},
                     child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+                      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 14),
                       child: Text("Login"),
-                    )),
-              ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
