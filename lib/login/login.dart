@@ -54,11 +54,19 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     bool password = false,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.12),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
+
       child: TextField(
         controller: controller,
         obscureText: password ? hidePassword : false,
@@ -84,15 +92,13 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
+            colors: [Color(0xFF0F172A), Color(0xFF1E3A8A), Color(0xFF3B82F6)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF0F172A),
-              Color(0xFF1E3A8A),
-              Color(0xFF3B82F6),
-            ],
           ),
         ),
 
@@ -109,6 +115,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     child: child,
                   );
                 },
+                
                 child: Center(
                   child: Container(
                     width: 220.0 + (index * 120),
@@ -121,6 +128,43 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       ),
                     ),
                   ),
+                ),
+              ),
+              for (int i = 0; i < 6; i++)
+              Positioned(
+                top: 80.0 + i * 100,
+                left: (i % 2 == 0) ? 24.0 : null,
+                right: (i % 2 != 0) ? 24.0 : null,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: Duration(milliseconds: 1800 + i * 250),
+                  curve: Curves.easeInOut,
+                  builder: (context, value, child) {
+                    return Opacity(
+                      opacity: (value * 0.35).clamp(0.0, 0.35),
+                      child: Transform.translate(
+                        offset: Offset(0, -20 * value),
+                        child: Container(
+                          width: 8.0 + (i % 3) * 4.0,
+                          height: 8.0 + (i % 3) * 4.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.25),
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.2),
+                                blurRadius: 6,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  onEnd: () {
+                    if (mounted) setState(() {});
+                  },
                 ),
               ),
 
