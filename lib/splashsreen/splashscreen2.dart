@@ -70,20 +70,51 @@ with TickerProviderStateMixin {
     _slideController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFF0F172A),
-      body: Center(
-        child: Text(
-          "Splash Screen 2",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
+    return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          
+          AnimatedBuilder(
+            animation: _rotateController,
+            builder: (_, child) {
+              return Transform.rotate(
+                angle: _rotateController.value * 2 * math.pi,
+                child: child,
+              );
+            },
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: SweepGradient(
+                  colors: [
+                    Colors.blue.shade700,
+                    Colors.blue.shade300,
+                    Colors.blue.shade700,
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
+
+        
+          const Center(
+            child: Text(
+              "Splash Screen 2",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
