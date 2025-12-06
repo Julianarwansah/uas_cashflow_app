@@ -12,30 +12,41 @@ class _SplashScreen3State extends State<SplashScreen3> with TickerProviderStateM
   late AnimationController _slideController;
   late AnimationController _rotateController;
   late AnimationController _particlesController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    _fadeController = AnimationController(
+     _fadeController = AnimationController(
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
-      duration: const Duration(seconds: 2),
-    )..forward();
+    );
 
+    // Slide
     _slideController = AnimationController(
+      duration: const Duration(milliseconds: 1400),
       vsync: this,
-      duration: const Duration(seconds: 3),
-    )..forward();
+    );
 
+    // Rotate background
     _rotateController = AnimationController(
-      vsync: this,
       duration: const Duration(seconds: 20),
+      vsync: this,
     )..repeat();
 
-    _particlesController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 15),
-    )..repeat();
+   _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
+    );
+
+    _slideAnimation = Tween(begin: const Offset(0, 0.4), end: Offset.zero).animate(
+      CurvedAnimation(parent: _slideController, curve: Curves.easeOut),
+    );
+
+    // Jalankan animasi
+    _fadeController.forward();
+    _slideController.forward();
   }
 
   @override
@@ -43,81 +54,97 @@ class _SplashScreen3State extends State<SplashScreen3> with TickerProviderStateM
     _fadeController.dispose();
     _slideController.dispose();
     _rotateController.dispose();
-    _particlesController.dispose();
     super.dispose();
   }
 
 
-c@override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0A0F24),
       body: Stack(
         alignment: Alignment.center,
         children: [
-          // ROTATING CIRCLE
+          // ROTATING BACKGROUND CIRCLE
           AnimatedBuilder(
             animation: _rotateController,
             builder: (_, child) {
               return Transform.rotate(
-                angle: _rotateController.value * 6.2831,
+                angle: _rotateController.value * 2 * math.pi,
                 child: child,
               );
             },
             child: Container(
-              width: 260,
-              height: 260,
+              width: 300,
+              height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: SweepGradient(
-                  colors: [
-                    Colors.blue.shade800,
-                    Colors.blue.shade400,
-                    Colors.blue.shade800,
-                  ],
+                border: Border.all(
+                  color: Colors.blueAccent.withOpacity(0.2),
+                  width: 4,
                 ),
               ),
             ),
           ),
 
-          AnimatedBuilder(
-            animation: _particlesController,
-            builder: (context, child) {
-              final random = math.Random();
-              List<Widget> particles = [];
-
-              for (int i = 0; i < 25; i++) {
-                double angle = random.nextDouble() * 2 * math.pi;
-                double radius = 80 + random.nextDouble() * 100;
-                double x = math.cos(angle + _particlesController.value * 2 * math.pi) * radius;
-                double y = math.sin(angle + _particlesController.value * 2 * math.pi) * radius;
-
-                particles.add(
-                  Positioned(
-                    left: MediaQuery.of(context).size.width / 2 + x,
-                    top: MediaQuery.of(context).size.height / 2 + y,
-                    child: Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.3),
+          // MAIN CONTENT
+          FadeTransition(
+            opacity: _fadeAnimation,
+            child: SlideTransition(
+              position: _slideAnimation,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Decorative line
+                  Container(
+                    width: 70,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Colors.transparent,
+                          Colors.white,
+                          Colors.transparent,
+                        ],
                       ),
+                      borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                );
-              }
 
-              return Stack(children: particles);
-            },
-          ),
+                  // Title
+                  Text(
+                    "Catat, Lacak, Kontrol",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: 1,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.3),
+                          offset: const Offset(0, 4),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
 
-          const Text(
-            "Splash Screen 3",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              letterSpacing: 1.2,
+                  const SizedBox(height: 10),
+
+                  // Subtitle
+                  Text(
+                    "Pengeluaran Anda",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
