@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 15),
 
-           TextField(
+            TextField(
               controller: passController,
               obscureText: hidePassword,
               decoration: InputDecoration(
@@ -55,7 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-
 
             const SizedBox(height: 20),
 
