@@ -208,6 +208,24 @@ class _SignupScreenState extends State<SignupScreen>
                   },
                 ),
               ),
+
+            // Main content
+            SafeArea(
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 28),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 60),
+                        const Text('Signup Form akan ditambahkan di sini'),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
