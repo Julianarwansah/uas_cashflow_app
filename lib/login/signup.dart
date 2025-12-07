@@ -219,7 +219,60 @@ class _SignupScreenState extends State<SignupScreen>
                     child: Column(
                       children: [
                         const SizedBox(height: 60),
-                        const Text('Signup Form akan ditambahkan di sini'),
+
+                        // Logo with glow effect
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // Glow effect
+                            Container(
+                              width: 220,
+                              height: 220,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: RadialGradient(
+                                  colors: [
+                                    const Color(
+                                      0xFF60A5FA,
+                                    ).withValues(alpha: 0.3),
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            // Logo container
+                            ScaleTransition(
+                              scale: _scaleAnimation,
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(
+                                        0xFF3B82F6,
+                                      ).withValues(alpha: 0.4),
+                                      blurRadius: 30,
+                                      spreadRadius: 5,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
+                                ),
+                                child: Lottie.asset(
+                                  "assets/animation/Manage_Money.json",
+                                  width: 140,
+                                  height: 140,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 30),
+                        const Text('Form akan ditambahkan'),
                       ],
                     ),
                   ),
