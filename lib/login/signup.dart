@@ -60,6 +60,18 @@ class _SignupScreenState extends State<SignupScreen>
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passController.dispose();
+    confirmPassController.dispose();
+    _fadeController.dispose();
+    _scaleController.dispose();
+    _rotateController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(child: const Center(child: Text('Signup Screen'))),
