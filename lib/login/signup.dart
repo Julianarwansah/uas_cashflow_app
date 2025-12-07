@@ -71,6 +71,54 @@ class _SignupScreenState extends State<SignupScreen>
     super.dispose();
   }
 
+  Future<void> _signup() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      if (passController.text != confirmPassController.text) {
+        throw Exception('Password tidak cocok!');
+      }
+
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passController.text,
+          );
+      final user = credential.user;
+
+      if (!mounted) return;
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Signup Berhasil'),
+          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _error = e.message;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
