@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'login/login.dart';
+import 'splashscreen/splashscreen1.dart';
+import 'splashscreen/splashscreen2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +17,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Cashflow App',
       theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      // Home pertama
+      home: const SplashScreen1(),
+      // Daftarkan route bernama untuk SplashScreen2
+      routes: {
+        '/splash2': (context) => const SplashScreen2(),
+        // Jika nanti ada login atau halaman lain, tambahkan di sini
+         '/login': (context) => const LoginScreen(),
+      },
     );
   }
 }

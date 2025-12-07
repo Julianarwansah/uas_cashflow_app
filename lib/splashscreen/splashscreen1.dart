@@ -217,8 +217,8 @@ class _SplashScreen1State extends State<SplashScreen1> with TickerProviderStateM
                                 child: SizedBox(
                                   width: 180,
                                   height: 180,
-                                  child: Lottie.asset(
-                                    'assets/animation/File_Analysis.json',
+                                  child: Image.asset(
+                                    'assets/images/logo_global.png',
                                     fit: BoxFit.contain,
                                   ),
                                 ),

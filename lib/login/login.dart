@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math' as math;
-import 'signup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,14 +9,11 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with TickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   bool _obscurePassword = true;
-  bool _isLoading = false;
-  String? _error;
-
+  
   late AnimationController _fadeController;
   late AnimationController _scaleController;
   late AnimationController _rotateController;
@@ -44,10 +39,9 @@ class _LoginScreenState extends State<LoginScreen>
       vsync: this,
     )..repeat();
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
+    );
 
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut),
@@ -65,49 +59,6 @@ class _LoginScreenState extends State<LoginScreen>
     _scaleController.dispose();
     _rotateController.dispose();
     super.dispose();
-  }
-
-  Future<void> _login() async {
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
-
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passController.text,
-      );
-      final user = credential.user;
-
-      if (!mounted) return;
-
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Login Berhasil'),
-          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        _error = e.message;
-      });
-    } catch (e) {
-      setState(() {
-        _error = e.toString();
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   @override
@@ -136,11 +87,7 @@ class _LoginScreenState extends State<LoginScreen>
                 animation: _rotateController,
                 builder: (context, child) {
                   return Transform.rotate(
-                    angle:
-                        _rotateController.value *
-                        2 *
-                        math.pi *
-                        (index % 2 == 0 ? 1 : -1),
+                    angle: _rotateController.value * 2 * math.pi * (index % 2 == 0 ? 1 : -1),
                     child: child,
                   );
                 },
@@ -223,9 +170,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 shape: BoxShape.circle,
                                 gradient: RadialGradient(
                                   colors: [
-                                    const Color(
-                                      0xFF60A5FA,
-                                    ).withValues(alpha: 0.3),
+                                    const Color(0xFF60A5FA).withValues(alpha: 0.3),
                                     Colors.transparent,
                                   ],
                                 ),
@@ -242,9 +187,7 @@ class _LoginScreenState extends State<LoginScreen>
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(
-                                        0xFF3B82F6,
-                                      ).withValues(alpha: 0.4),
+                                      color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
                                       blurRadius: 30,
                                       spreadRadius: 5,
                                       offset: const Offset(0, 8),
@@ -279,9 +222,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 blurRadius: 10,
                               ),
                               Shadow(
-                                color: const Color(
-                                  0xFF60A5FA,
-                                ).withValues(alpha: 0.5),
+                                color: const Color(0xFF60A5FA).withValues(alpha: 0.5),
                                 offset: const Offset(0, 0),
                                 blurRadius: 20,
                               ),
@@ -324,7 +265,9 @@ class _LoginScreenState extends State<LoginScreen>
 
                         // Login Button
                         GestureDetector(
-                          onTap: _isLoading ? null : _login,
+                          onTap: () {
+                            // Navigator.pushReplacementNamed(context, '/home');
+                          },
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(vertical: 18),
@@ -339,9 +282,7 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(
-                                    0xFF3B82F6,
-                                  ).withValues(alpha: 0.5),
+                                  color: const Color(0xFF3B82F6).withValues(alpha: 0.5),
                                   blurRadius: 20,
                                   spreadRadius: 2,
                                   offset: const Offset(0, 8),
@@ -353,76 +294,30 @@ class _LoginScreenState extends State<LoginScreen>
                                 ),
                               ],
                             ),
-                            child: _isLoading
-                                ? const Center(
-                                    child: SizedBox(
-                                      height: 22,
-                                      width: 22,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                        strokeWidth: 3,
-                                      ),
-                                    ),
-                                  )
-                                : const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Masuk",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 1,
-                                        ),
-                                      ),
-                                      SizedBox(width: 8),
-                                      Icon(
-                                        Icons.arrow_forward_rounded,
-                                        color: Colors.white,
-                                        size: 22,
-                                      ),
-                                    ],
-                                  ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 20),
-
-                        // Error Message
-                        if (_error != null)
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.red.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Colors.red.withValues(alpha: 0.5),
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(
-                                  Icons.error_outline,
-                                  color: Colors.red,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    _error!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 13,
-                                    ),
+                                Text(
+                                  "Masuk",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1,
                                   ),
+                                ),
+                                SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Colors.white,
+                                  size: 22,
                                 ),
                               ],
                             ),
                           ),
+                        ),
 
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 30),
 
                         // Forgot Password & Register
                         Container(
@@ -447,22 +342,10 @@ class _LoginScreenState extends State<LoginScreen>
                                   children: [
                                     Icon(
                                       Icons.help_outline,
-                                      color: Colors.white.withValues(
-                                        alpha: 0.9,
-                                      ),
+                                      color: Colors.white.withValues(alpha: 0.9),
                                       size: 18,
                                     ),
                                     const SizedBox(width: 6),
-                                    Text(
-                                      "Lupa Kata Sandi?",
-                                      style: TextStyle(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.9,
-                                        ),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -472,31 +355,19 @@ class _LoginScreenState extends State<LoginScreen>
                                 color: Colors.white.withValues(alpha: 0.3),
                               ),
                               InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignupScreen(),
-                                    ),
-                                  );
-                                },
+                                onTap: () {},
                                 child: Row(
                                   children: [
                                     Icon(
                                       Icons.person_add_outlined,
-                                      color: Colors.white.withValues(
-                                        alpha: 0.9,
-                                      ),
+                                      color: Colors.white.withValues(alpha: 0.9),
                                       size: 18,
                                     ),
                                     const SizedBox(width: 6),
                                     Text(
                                       "Buat Akun Baru",
                                       style: TextStyle(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.9,
-                                        ),
+                                        color: Colors.white.withValues(alpha: 0.9),
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -554,9 +425,16 @@ class _LoginScreenState extends State<LoginScreen>
       child: TextField(
         controller: controller,
         obscureText: isPassword && _obscurePassword,
-        style: const TextStyle(color: Color(0xFF0F172A), fontSize: 16),
+        style: const TextStyle(
+          color: Color(0xFF0F172A),
+          fontSize: 16,
+        ),
         decoration: InputDecoration(
-          icon: Icon(icon, color: const Color(0xFF3B82F6), size: 24),
+          icon: Icon(
+            icon,
+            color: const Color(0xFF3B82F6),
+            size: 24,
+          ),
           hintText: hint,
           hintStyle: TextStyle(
             color: Colors.black.withValues(alpha: 0.4),
