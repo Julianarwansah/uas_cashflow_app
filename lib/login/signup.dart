@@ -167,6 +167,47 @@ class _SignupScreenState extends State<SignupScreen>
                   ),
                 ),
               ),
+
+            // Floating particles
+            for (int index = 0; index < 6; index++)
+              Positioned(
+                top: 100.0 + (index * 120),
+                left: (index % 2 == 0) ? 30.0 : null,
+                right: (index % 2 != 0) ? 30.0 : null,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: Duration(milliseconds: 2000 + (index * 300)),
+                  curve: Curves.easeInOut,
+                  builder: (context, value, child) {
+                    return Opacity(
+                      opacity: (value * 0.4).clamp(0.0, 0.4),
+                      child: Transform.translate(
+                        offset: Offset(0, -30 * value),
+                        child: Container(
+                          width: 10 + (index % 3) * 5.0,
+                          height: 10 + (index % 3) * 5.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.3),
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withValues(alpha: 0.4),
+                                blurRadius: 8,
+                                spreadRadius: 2,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  onEnd: () {
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                ),
+              ),
           ],
         ),
       ),
