@@ -91,17 +91,17 @@ class _SignupScreenState extends State<SignupScreen>
 
       if (!mounted) return;
 
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Signup Berhasil'),
-          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
+      // Kembali ke halaman login setelah signup berhasil
+      Navigator.pop(context);
+
+      // Tampilkan snackbar sukses
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Akun berhasil dibuat! Silakan login dengan email: ${user?.email}',
+          ),
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 3),
         ),
       );
     } on FirebaseAuthException catch (e) {
