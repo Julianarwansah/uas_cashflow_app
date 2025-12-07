@@ -137,7 +137,38 @@ class _SignupScreenState extends State<SignupScreen>
             ],
           ),
         ),
-        child: const Center(child: Text('Signup Screen')),
+        child: Stack(
+          children: [
+            // Animated rotating circles background
+            for (int index = 0; index < 3; index++)
+              AnimatedBuilder(
+                animation: _rotateController,
+                builder: (context, child) {
+                  return Transform.rotate(
+                    angle:
+                        _rotateController.value *
+                        2 *
+                        math.pi *
+                        (index % 2 == 0 ? 1 : -1),
+                    child: child,
+                  );
+                },
+                child: Center(
+                  child: Container(
+                    width: 300.0 + (index * 100),
+                    height: 300.0 + (index * 100),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.05),
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
