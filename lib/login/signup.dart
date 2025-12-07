@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math' as math;
-import 'signup.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
+class _SignupScreenState extends State<SignupScreen>
     with TickerProviderStateMixin {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   bool _isLoading = false;
   String? _error;
 
@@ -59,40 +61,47 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passController.dispose();
+    confirmPassController.dispose();
     _fadeController.dispose();
     _scaleController.dispose();
     _rotateController.dispose();
     super.dispose();
   }
 
-  Future<void> _login() async {
+  Future<void> _signup() async {
     setState(() {
       _isLoading = true;
       _error = null;
     });
 
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passController.text,
-      );
+      if (passController.text != confirmPassController.text) {
+        throw Exception('Password tidak cocok!');
+      }
+
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passController.text,
+          );
       final user = credential.user;
 
       if (!mounted) return;
 
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Login Berhasil'),
-          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
+      // Kembali ke halaman login setelah signup berhasil
+      Navigator.pop(context);
+
+      // Tampilkan snackbar sukses
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Akun berhasil dibuat! Silakan login dengan email: ${user?.email}',
+          ),
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 3),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -266,7 +275,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                         // Title
                         Text(
-                          "Selamat Datang!",
+                          "Daftar Sekarang!",
                           style: TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.w900,
@@ -292,7 +301,7 @@ class _LoginScreenState extends State<LoginScreen>
                         const SizedBox(height: 10),
 
                         Text(
-                          "Masuk untuk mulai mengatur keuangan Anda",
+                          "Buat akun untuk mulai mengatur keuangan Anda",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 15,
@@ -303,11 +312,20 @@ class _LoginScreenState extends State<LoginScreen>
 
                         const SizedBox(height: 45),
 
+                        // Name Field
+                        _buildInputField(
+                          controller: nameController,
+                          icon: Icons.person_outline,
+                          hint: "Nama Lengkap",
+                        ),
+
+                        const SizedBox(height: 20),
+
                         // Email Field
                         _buildInputField(
                           controller: emailController,
                           icon: Icons.email_outlined,
-                          hint: "Email / Nama Pengguna",
+                          hint: "Email",
                         ),
 
                         const SizedBox(height: 20),
@@ -320,11 +338,21 @@ class _LoginScreenState extends State<LoginScreen>
                           isPassword: true,
                         ),
 
+                        const SizedBox(height: 20),
+
+                        // Confirm Password Field
+                        _buildInputField(
+                          controller: confirmPassController,
+                          icon: Icons.lock_outline,
+                          hint: "Konfirmasi Kata Sandi",
+                          isConfirmPassword: true,
+                        ),
+
                         const SizedBox(height: 35),
 
-                        // Login Button
+                        // Signup Button
                         GestureDetector(
-                          onTap: _isLoading ? null : _login,
+                          onTap: _isLoading ? null : _signup,
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(vertical: 18),
@@ -368,7 +396,7 @@ class _LoginScreenState extends State<LoginScreen>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Masuk",
+                                        "Daftar",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
@@ -422,94 +450,33 @@ class _LoginScreenState extends State<LoginScreen>
                             ),
                           ),
 
-                        const SizedBox(height: 10),
-
-                        // Forgot Password & Register
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 20,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.2),
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                onTap: () {},
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.help_outline,
-                                      color: Colors.white.withValues(
-                                        alpha: 0.9,
-                                      ),
-                                      size: 18,
-                                    ),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      "Lupa Kata Sandi?",
-                                      style: TextStyle(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.9,
-                                        ),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 1,
-                                height: 20,
-                                color: Colors.white.withValues(alpha: 0.3),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignupScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person_add_outlined,
-                                      color: Colors.white.withValues(
-                                        alpha: 0.9,
-                                      ),
-                                      size: 18,
-                                    ),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      "Buat Akun Baru",
-                                      style: TextStyle(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.9,
-                                        ),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
                         const SizedBox(height: 40),
                       ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // Back Button (Moved to bottom to be on top layer)
+            Positioned(
+              top: 0,
+              left: 0,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () => Navigator.pop(context),
                     ),
                   ),
                 ),
@@ -527,6 +494,7 @@ class _LoginScreenState extends State<LoginScreen>
     required IconData icon,
     required String hint,
     bool isPassword = false,
+    bool isConfirmPassword = false,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -553,7 +521,9 @@ class _LoginScreenState extends State<LoginScreen>
       ),
       child: TextField(
         controller: controller,
-        obscureText: isPassword && _obscurePassword,
+        obscureText: isPassword
+            ? _obscurePassword
+            : (isConfirmPassword ? _obscureConfirmPassword : false),
         style: const TextStyle(color: Color(0xFF0F172A), fontSize: 16),
         decoration: InputDecoration(
           icon: Icon(icon, color: const Color(0xFF3B82F6), size: 24),
@@ -563,16 +533,22 @@ class _LoginScreenState extends State<LoginScreen>
             fontSize: 15,
           ),
           border: InputBorder.none,
-          suffixIcon: isPassword
+          suffixIcon: (isPassword || isConfirmPassword)
               ? IconButton(
                   icon: Icon(
-                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    (isPassword ? _obscurePassword : _obscureConfirmPassword)
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: const Color(0xFF3B82F6),
                     size: 22,
                   ),
                   onPressed: () {
                     setState(() {
-                      _obscurePassword = !_obscurePassword;
+                      if (isPassword) {
+                        _obscurePassword = !_obscurePassword;
+                      } else {
+                        _obscureConfirmPassword = !_obscureConfirmPassword;
+                      }
                     });
                   },
                 )
