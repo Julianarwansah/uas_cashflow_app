@@ -21,6 +21,12 @@ class _SignupScreenState extends State<SignupScreen>
   bool _isLoading = false;
   String? _error;
 
+  late AnimationController _fadeController;
+  late AnimationController _scaleController;
+  late AnimationController _rotateController;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
