@@ -272,7 +272,46 @@ class _SignupScreenState extends State<SignupScreen>
                         ),
 
                         const SizedBox(height: 30),
-                        const Text('Form akan ditambahkan'),
+
+                        // Title
+                        Text(
+                          "Daftar Sekarang!",
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black.withValues(alpha: 0.3),
+                                offset: const Offset(0, 4),
+                                blurRadius: 10,
+                              ),
+                              Shadow(
+                                color: const Color(
+                                  0xFF60A5FA,
+                                ).withValues(alpha: 0.5),
+                                offset: const Offset(0, 0),
+                                blurRadius: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Text(
+                          "Buat akun untuk mulai mengatur keuangan Anda",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white.withValues(alpha: 0.85),
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+
+                        const SizedBox(height: 45),
+                        const Text('Form input akan ditambahkan'),
                       ],
                     ),
                   ),
