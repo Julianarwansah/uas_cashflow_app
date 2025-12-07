@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712776728248",
+    "project_id": "uas-cashflow-app",
+    "storage_bucket": "uas-cashflow-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712776728248:android:afb109c145ae3612607e4d",
+        "android_client_info": {
+          "package_name": "com.uas.cashflow.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0kSCbFNwG9IHQV78aWLfre7xdTloFHi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
