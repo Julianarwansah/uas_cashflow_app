@@ -209,8 +209,6 @@ class _SignupScreenState extends State<SignupScreen>
                 ),
               ),
 
-
-
             // Main content
             SafeArea(
               child: FadeTransition(
@@ -458,7 +456,6 @@ class _SignupScreenState extends State<SignupScreen>
                   ),
                 ),
               ),
-            ),
             ),
 
             // Back Button (Moved to bottom to be on top layer)
