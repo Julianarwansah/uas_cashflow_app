@@ -209,30 +209,7 @@ class _SignupScreenState extends State<SignupScreen>
                 ),
               ),
 
-            // Back Button
-            Positioned(
-              top: 0,
-              left: 0,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
 
             // Main content
             SafeArea(
@@ -477,6 +454,32 @@ class _SignupScreenState extends State<SignupScreen>
 
                         const SizedBox(height: 40),
                       ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            ),
+
+            // Back Button (Moved to bottom to be on top layer)
+            Positioned(
+              top: 0,
+              left: 0,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () => Navigator.pop(context),
                     ),
                   ),
                 ),
