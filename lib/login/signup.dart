@@ -311,7 +311,45 @@ class _SignupScreenState extends State<SignupScreen>
                         ),
 
                         const SizedBox(height: 45),
-                        const Text('Form input akan ditambahkan'),
+
+                        // Name Field
+                        _buildInputField(
+                          controller: nameController,
+                          icon: Icons.person_outline,
+                          hint: "Nama Lengkap",
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Email Field
+                        _buildInputField(
+                          controller: emailController,
+                          icon: Icons.email_outlined,
+                          hint: "Email",
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Password Field
+                        _buildInputField(
+                          controller: passController,
+                          icon: Icons.lock_outline,
+                          hint: "Kata Sandi",
+                          isPassword: true,
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Confirm Password Field
+                        _buildInputField(
+                          controller: confirmPassController,
+                          icon: Icons.lock_outline,
+                          hint: "Konfirmasi Kata Sandi",
+                          isConfirmPassword: true,
+                        ),
+
+                        const SizedBox(height: 35),
+                        const Text('Tombol signup akan ditambahkan'),
                       ],
                     ),
                   ),
