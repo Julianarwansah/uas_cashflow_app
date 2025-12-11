@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math' as math;
+import 'signup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -452,7 +453,6 @@ class _LoginScreenState extends State<LoginScreen>
                                       size: 18,
                                     ),
                                     const SizedBox(width: 6),
-  
                                   ],
                                 ),
                               ),
@@ -462,7 +462,15 @@ class _LoginScreenState extends State<LoginScreen>
                                 color: Colors.white.withValues(alpha: 0.3),
                               ),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SignupScreen(),
+                                    ),
+                                  );
+                                },
                                 child: Row(
                                   children: [
                                     Icon(
