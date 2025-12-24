@@ -35,8 +35,10 @@ class _LoginScreenState extends State<LoginScreen>
     );
 
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_fadeController);
-    _scaleAnimation =
-        Tween<double>(begin: 0.8, end: 1).animate(_scaleController);
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1,
+    ).animate(_scaleController);
 
     _fadeController.forward();
     _scaleController.forward();
@@ -205,7 +207,9 @@ class _LoginScreenState extends State<LoginScreen>
                       style: TextStyle(color: Colors.white70, fontSize: 13),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/signup');
+                      },
                       child: const Text(
                         "Buat Akun Baru",
                         style: TextStyle(
@@ -246,8 +250,10 @@ class _LoginScreenState extends State<LoginScreen>
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide.none,
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 14,
+        ),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
@@ -255,7 +261,8 @@ class _LoginScreenState extends State<LoginScreen>
                   color: const Color(0xFF3B82F6),
                   size: 18,
                 ),
-                onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                onPressed: () =>
+                    setState(() => _obscurePassword = !_obscurePassword),
               )
             : null,
       ),

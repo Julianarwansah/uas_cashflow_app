@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'login/login.dart';
+import 'login/signup.dart';
 import 'splashscreen/splashscreen1.dart';
 import 'splashscreen/splashscreen2.dart';
 import 'splashscreen/splashscreen3.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
         '/splash2': (context) => const SplashScreen2(),
         '/splash3': (context) => const SplashScreen3(),
         // Jika nanti ada login atau halaman lain, tambahkan di sini
-         '/login': (context) => const LoginScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignupScreen(),
       },
     );
   }
