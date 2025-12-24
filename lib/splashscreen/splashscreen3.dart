@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'dart:math' as math;
 
 class SplashScreen3 extends StatefulWidget {
   const SplashScreen3({super.key});
@@ -12,9 +11,7 @@ class SplashScreen3 extends StatefulWidget {
 class _SplashScreen3State extends State<SplashScreen3>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
-  late AnimationController _scaleController;
   late Animation<double> _fadeAnimation;
-  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
@@ -24,18 +21,10 @@ class _SplashScreen3State extends State<SplashScreen3>
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    _scaleController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    );
 
-    _fadeAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_fadeController);
-    _scaleAnimation =
-        Tween<double>(begin: 0.8, end: 1).animate(_scaleController);
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_fadeController);
 
     _fadeController.forward();
-    _scaleController.forward();
 
     Future.delayed(const Duration(seconds: 4), () {
       if (!mounted) return;
@@ -46,7 +35,6 @@ class _SplashScreen3State extends State<SplashScreen3>
   @override
   void dispose() {
     _fadeController.dispose();
-    _scaleController.dispose();
     super.dispose();
   }
 
@@ -85,11 +73,20 @@ class _SplashScreen3State extends State<SplashScreen3>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLottieItem('assets/animation/File_Analysis.json', 'Catat'),
+                  _buildLottieItem(
+                    'assets/animation/File_Analysis.json',
+                    'Catat',
+                  ),
                   const SizedBox(width: 20),
-                  _buildLottieItem('assets/animation/Manage_Money.json', 'Lacak'),
+                  _buildLottieItem(
+                    'assets/animation/Manage_Money.json',
+                    'Lacak',
+                  ),
                   const SizedBox(width: 20),
-                  _buildLottieItem('assets/animation/Sandy_Loading.json', 'Kontrol'),
+                  _buildLottieItem(
+                    'assets/animation/Sandy_Loading.json',
+                    'Kontrol',
+                  ),
                 ],
               ),
               const SizedBox(height: 36),

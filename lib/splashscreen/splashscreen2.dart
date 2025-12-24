@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'dart:math' as math;
 
 class SplashScreen2 extends StatefulWidget {
   const SplashScreen2({super.key});
@@ -29,10 +28,11 @@ class _SplashScreen2State extends State<SplashScreen2>
       vsync: this,
     );
 
-    _fadeAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_fadeController);
-    _scaleAnimation =
-        Tween<double>(begin: 0.8, end: 1).animate(_scaleController);
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_fadeController);
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1,
+    ).animate(_scaleController);
 
     _fadeController.forward();
     _scaleController.forward();
