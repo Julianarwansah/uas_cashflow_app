@@ -97,4 +97,28 @@ class AppTheme {
     fontWeight: FontWeight.normal,
     color: textSecondary,
   );
+
+  static TextStyle get labelLarge => GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: textPrimary,
+  );
+
+  static TextStyle get labelMedium => GoogleFonts.inter(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: textSecondary,
+  );
+
+  static TextStyle get amountLarge => GoogleFonts.poppins(
+    fontSize: 36,
+    fontWeight: FontWeight.bold,
+    color: textWhite,
+  );
+
+  static TextStyle get amountMedium => GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: textPrimary,
+  );
 }
