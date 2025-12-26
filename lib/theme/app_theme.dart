@@ -13,4 +13,15 @@ class AppTheme {
   static const Color glassBackground = Color(0x1A3B82F6);
   static const Color cardBackground = Color(0xFFFFFFFF);
   static const Color scaffoldBackground = Color(0xFFF0F9FF);
+
+  // Income & Expense Colors
+  static const Color incomeGreen = Color(0xFF10B981);
+  static const Color incomeGreenLight = Color(0xFFD1FAE5);
+  static const Color expenseRed = Color(0xFFEF4444);
+  static const Color expenseRedLight = Color(0xFFFEE2E2);
+
+  // Text Colors
+  static const Color textPrimary = Color(0xFF1E293B);
+  static const Color textSecondary = Color(0xFF64748B);
+  static const Color textWhite = Color(0xFFFFFFFF);
 }
