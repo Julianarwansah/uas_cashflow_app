@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'login/login.dart';
-import 'login/signup.dart';
-import 'splashscreen/splashscreen1.dart';
-import 'splashscreen/splashscreen2.dart';
-import 'splashscreen/splashscreen3.dart';
+import 'auth/login.dart';
+import 'auth/signup.dart';
+import 'splash/splashscreen1.dart';
+import 'splash/splashscreen2.dart';
+import 'splash/splashscreen3.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
