@@ -9,10 +9,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for ios - '
@@ -46,6 +43,14 @@ class DefaultFirebaseOptions {
     messagingSenderId: '712776728248',
     projectId: 'uas-cashflow-app',
     authDomain: 'uas-cashflow-app.firebaseapp.com',
+    storageBucket: 'uas-cashflow-app.firebasestorage.app',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyD0kSCbFNwG9IHQV78aWLfre7xdTloFHi0',
+    appId: '1:712776728248:android:afb109c145ae3612607e4d',
+    messagingSenderId: '712776728248',
+    projectId: 'uas-cashflow-app',
     storageBucket: 'uas-cashflow-app.firebasestorage.app',
   );
 }
