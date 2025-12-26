@@ -24,4 +24,17 @@ class AppTheme {
   static const Color textPrimary = Color(0xFF1E293B);
   static const Color textSecondary = Color(0xFF64748B);
   static const Color textWhite = Color(0xFFFFFFFF);
+
+  // Gradient for cards
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [primaryBlue, accentBlue],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient cardGradient = LinearGradient(
+    colors: [Color(0xFF2563EB), Color(0xFF1D4ED8)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }
