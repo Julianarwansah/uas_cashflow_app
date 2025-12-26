@@ -54,4 +54,23 @@ class AppTheme {
       offset: const Offset(0, 4),
     ),
   ];
+
+  // Text Styles with Google Fonts
+  static TextStyle get displayLarge => GoogleFonts.poppins(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: textPrimary,
+  );
+
+  static TextStyle get headlineLarge => GoogleFonts.poppins(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: textWhite,
+  );
+
+  static TextStyle get headlineMedium => GoogleFonts.poppins(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    color: textPrimary,
+  );
 }
