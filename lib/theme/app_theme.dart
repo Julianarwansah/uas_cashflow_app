@@ -37,4 +37,21 @@ class AppTheme {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  // Box Shadows - using withValues instead of deprecated withOpacity
+  static List<BoxShadow> cardShadow = [
+    BoxShadow(
+      color: accentBlue.withValues(alpha: 0.15),
+      blurRadius: 20,
+      offset: const Offset(0, 10),
+    ),
+  ];
+
+  static List<BoxShadow> softShadow = [
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.05),
+      blurRadius: 10,
+      offset: const Offset(0, 4),
+    ),
+  ];
 }
