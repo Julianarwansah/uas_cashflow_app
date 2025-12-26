@@ -20,4 +20,32 @@ class AppTheme {
   static const Color textPrimary = Color(0xFF1E293B);
   static const Color textSecondary = Color(0xFF64748B);
   static const Color textWhite = Color(0xFFFFFFFF);
+
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [primaryBlue, accentBlue],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient cardGradient = LinearGradient(
+    colors: [Color(0xFF2563EB), Color(0xFF1D4ED8)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static List<BoxShadow> cardShadow = [
+    BoxShadow(
+      color: accentBlue.withValues(alpha: 0.15),
+      blurRadius: 20,
+      offset: const Offset(0, 10),
+    ),
+  ];
+
+  static List<BoxShadow> softShadow = [
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.05),
+      blurRadius: 10,
+      offset: const Offset(0, 4),
+    ),
+  ];
 }
