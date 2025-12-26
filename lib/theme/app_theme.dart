@@ -8,4 +8,9 @@ class AppTheme {
   static const Color lightBlue = Color(0xFF60A5FA); // Light Blue
   static const Color softBlue = Color(0xFFDBEAFE); // Very Light Blue
   static const Color darkBlue = Color(0xFF1E293B); // Dark Navy
+
+  // Glassmorphism background
+  static const Color glassBackground = Color(0x1A3B82F6);
+  static const Color cardBackground = Color(0xFFFFFFFF);
+  static const Color scaffoldBackground = Color(0xFFF0F9FF);
 }
