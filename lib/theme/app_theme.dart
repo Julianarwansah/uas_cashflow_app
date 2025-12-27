@@ -20,4 +20,10 @@ class AppTheme {
   static const Color textPrimary = Color(0xFF1E293B);
   static const Color textSecondary = Color(0xFF64748B);
   static const Color textWhite = Color(0xFFFFFFFF);
+
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [primaryBlue, accentBlue],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }
