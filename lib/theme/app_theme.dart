@@ -26,4 +26,10 @@ class AppTheme {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  static const LinearGradient cardGradient = LinearGradient(
+    colors: [Color(0xFF2563EB), Color(0xFF1D4ED8)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }
