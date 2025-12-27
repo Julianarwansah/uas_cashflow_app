@@ -31,5 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
       _transactionsStream = Stream.value([]);
       return;
     }
+
+    _transactionsStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('transactions')
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs.map((doc) {
+            return Transaction.fromMap(doc.data(), doc.id);
+          }).toList();
+        });
   }
 }
