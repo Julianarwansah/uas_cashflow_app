@@ -64,6 +64,18 @@ class _CashflowScreenState extends State<CashflowScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: AppTheme.scaffoldBackground,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header
+            // Filter
+            // List
+          ],
+        ),
+      ),
+      // FAB
+    );
   }
 }
