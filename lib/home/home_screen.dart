@@ -230,8 +230,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          // Placeholder
-          Container(),
+          const SizedBox(height: 12),
+          Text(formatCurrency(totalBalance), style: AppTheme.amountLarge),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  totalBalance >= 0
+                      ? Icons.trending_up_rounded
+                      : Icons.trending_down_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  totalBalance >= 0 ? 'Keuangan Sehat' : 'Perlu Perhatian',
+                  style: AppTheme.bodyMedium.copyWith(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
