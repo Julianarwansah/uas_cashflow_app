@@ -55,7 +55,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   List<String> get categories =>
       _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
 
-  // ... Helpers and Actions are same as last step, ensuring they are present
+  // ... Helpers and Actions (formatCurrency, _selectDate, _saveTransaction, _deleteTransaction, _showSnackBar) (kept to ensure context)
   String formatCurrency(String value) {
     if (value.isEmpty) return '';
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
@@ -89,7 +89,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Future<void> _saveTransaction() async {
-    // ... logic (same as before)
+    // ... logic
     if (_amountController.text.isEmpty) {
       _showSnackBar('Masukkan nominal transaksi');
       return;
@@ -181,7 +181,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Future<void> _deleteTransaction() async {
-    // ... logic (same as before)
+    // ... logic
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -241,12 +241,13 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     );
   }
 
+  // ... Build method (same except for children)
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.scaffoldBackground,
       appBar: AppBar(
-        // ... AppBar content same as before
+        // ...
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -315,7 +316,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildTypeToggle() {
-    // ... Type toggle same as before
+    //... type toggle logic
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
@@ -405,6 +406,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildAmountField() {
+    // ... amount field
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -451,6 +453,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildCategorySelector() {
+    // ... category selector
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -506,11 +509,79 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildDateSelector() {
-    return Container();
+    final dateFormat = DateFormat('dd/MM/yyyy');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Tanggal', style: AppTheme.labelLarge),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: _selectDate,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: AppTheme.softShadow,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: AppTheme.softBlue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.calendar_today_rounded,
+                    color: AppTheme.accentBlue,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  dateFormat.format(_selectedDate),
+                  style: AppTheme.titleMedium,
+                ),
+                const Spacer(),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  color: AppTheme.textSecondary,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildNoteField() {
-    return Container();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Catatan (Opsional)', style: AppTheme.labelLarge),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: AppTheme.softShadow,
+          ),
+          child: TextField(
+            controller: _noteController,
+            maxLines: 3,
+            style: AppTheme.bodyLarge,
+            decoration: InputDecoration(
+              hintText: 'Tambahkan catatan...',
+              hintStyle: AppTheme.bodyMedium,
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.all(16),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildSaveButton() {
