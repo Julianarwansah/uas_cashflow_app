@@ -71,7 +71,7 @@ class _CashflowScreenState extends State<CashflowScreen>
           children: [
             _buildHeader(),
             _buildFilterTabs(),
-            // List
+            Expanded(child: _buildTransactionList()),
           ],
         ),
       ),
@@ -80,6 +80,7 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   Widget _buildHeader() {
+    // ... same as before
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
@@ -153,6 +154,24 @@ class _CashflowScreenState extends State<CashflowScreen>
           Tab(text: 'Keluar'),
         ],
       ),
+    );
+  }
+
+  Widget _buildTransactionList() {
+    return StreamBuilder<List<Transaction>>(
+      stream: _transactionsStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final allTransactions = snapshot.data ?? [];
+        return Container(); // Coming soon
+      },
     );
   }
 }
