@@ -32,4 +32,12 @@ class AppTheme {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  static List<BoxShadow> cardShadow = [
+    BoxShadow(
+      color: accentBlue.withValues(alpha: 0.15),
+      blurRadius: 20,
+      offset: const Offset(0, 10),
+    ),
+  ];
 }
