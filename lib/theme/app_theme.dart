@@ -48,4 +48,16 @@ class AppTheme {
       offset: const Offset(0, 4),
     ),
   ];
+
+  static TextStyle get displayLarge => GoogleFonts.poppins(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: textPrimary,
+  );
+
+  static TextStyle get headlineLarge => GoogleFonts.poppins(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: textWhite,
+  );
 }
