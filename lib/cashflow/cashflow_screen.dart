@@ -20,6 +20,11 @@ class _CashflowScreenState extends State<CashflowScreen>
   int _selectedFilter = 0; // 0: All, 1: Income, 2: Expense
   late Stream<List<Transaction>> _transactionsStream;
 
+  String formatCurrency(double amount) {
+    final formatter = NumberFormat.currency(symbol: 'Rp ', decimalDigits: 0);
+    return formatter.format(amount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
