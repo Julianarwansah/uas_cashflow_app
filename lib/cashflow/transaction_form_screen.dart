@@ -19,7 +19,7 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
-  // ... (previous variables and methods)
+  // ... (all previous code)
   bool _isIncome = true;
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
@@ -173,6 +173,56 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
         setState(() => _isLoading = false);
       }
     }
+  }
+
+  Future<void> _deleteTransaction() async {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text('Hapus Transaksi?', style: AppTheme.titleLarge),
+        content: Text(
+          'Transaksi ini akan dihapus secara permanen.',
+          style: AppTheme.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text('Batal', style: AppTheme.labelLarge),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppTheme.expenseRed,
+            ),
+            onPressed: () async {
+              Navigator.pop(dialogContext);
+
+              final user = FirebaseAuth.instance.currentUser;
+              if (user == null || widget.transaction == null) return;
+
+              try {
+                await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(user.uid)
+                    .collection('transactions')
+                    .doc(widget.transaction!.id)
+                    .delete();
+
+                if (mounted) {
+                  Navigator.pop(context);
+                  _showSnackBar('Transaksi dihapus');
+                }
+              } catch (e) {
+                if (mounted) {
+                  _showSnackBar('Gagal menghapus: $e');
+                }
+              }
+            },
+            child: const Text('Hapus'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showSnackBar(String message) {
