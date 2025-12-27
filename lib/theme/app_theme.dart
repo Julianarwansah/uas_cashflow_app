@@ -16,4 +16,8 @@ class AppTheme {
   static const Color incomeGreenLight = Color(0xFFD1FAE5);
   static const Color expenseRed = Color(0xFFEF4444);
   static const Color expenseRedLight = Color(0xFFFEE2E2);
+
+  static const Color textPrimary = Color(0xFF1E293B);
+  static const Color textSecondary = Color(0xFF64748B);
+  static const Color textWhite = Color(0xFFFFFFFF);
 }
