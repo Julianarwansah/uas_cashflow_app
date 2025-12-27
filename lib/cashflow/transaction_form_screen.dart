@@ -48,6 +48,26 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     super.dispose();
   }
 
+  List<String> get categories =>
+      _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
+
+  String formatCurrency(String value) {
+    if (value.isEmpty) return '';
+    final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
+    final formatter = NumberFormat('#,###');
+    return formatter.format(number);
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
