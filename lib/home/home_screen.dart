@@ -74,4 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
         )
         .fold(0, (total, t) => total + t.amount);
   }
+
+  String formatCurrency(double amount) {
+    final formatter = NumberFormat.currency(symbol: 'Rp ', decimalDigits: 0);
+    return formatter.format(amount);
+  }
 }
