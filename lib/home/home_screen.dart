@@ -62,4 +62,16 @@ class _HomeScreenState extends State<HomeScreen> {
         )
         .fold(0, (total, t) => total + t.amount);
   }
+
+  double _calculateMonthlyExpense(List<Transaction> transactions) {
+    final now = DateTime.now();
+    return transactions
+        .where(
+          (t) =>
+              t.type == TransactionType.expense &&
+              t.date.month == now.month &&
+              t.date.year == now.year,
+        )
+        .fold(0, (total, t) => total + t.amount);
+  }
 }
