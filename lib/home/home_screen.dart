@@ -18,4 +18,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Stream<List<Transaction>> _transactionsStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _initStream();
+  }
 }
