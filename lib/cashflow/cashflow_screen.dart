@@ -43,7 +43,6 @@ class _CashflowScreenState extends State<CashflowScreen>
       return;
     }
 
-    // Fetch all transactions, ordered by date
     _transactionsStream = FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
@@ -55,6 +54,12 @@ class _CashflowScreenState extends State<CashflowScreen>
             return Transaction.fromMap(doc.data(), doc.id);
           }).toList();
         });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
