@@ -16,6 +16,10 @@ class CashflowScreen extends StatefulWidget {
 
 class _CashflowScreenState extends State<CashflowScreen>
     with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _selectedFilter = 0; // 0: All, 1: Income, 2: Expense
+  late Stream<List<Transaction>> _transactionsStream;
+
   @override
   Widget build(BuildContext context) {
     return Container();
