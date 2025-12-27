@@ -87,6 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StreamBuilder<List<Transaction>>(
         stream: _transactionsStream,
         builder: (context, snapshot) {
+          final transactions = snapshot.data ?? [];
+          final totalBalance = _calculateTotalBalance(transactions);
+          final monthlyIncome = _calculateMonthlyIncome(transactions);
+          final monthlyExpense = _calculateMonthlyExpense(transactions);
+          final recentTransactions = transactions.take(5).toList();
+
           return Container(); // Placeholder
         },
       ),
