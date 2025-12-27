@@ -19,7 +19,7 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
-  // ... (previous variables)
+  // ... variables
   bool _isIncome = true;
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
@@ -52,6 +52,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   List<String> get categories =>
       _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
 
+  // ... helpers
   String formatCurrency(String value) {
     if (value.isEmpty) return '';
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
@@ -82,6 +83,22 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     if (picked != null) {
       setState(() => _selectedDate = picked);
     }
+  }
+
+  Future<void> _saveTransaction() async {
+    if (_amountController.text.isEmpty) {
+      _showSnackBar('Masukkan nominal transaksi');
+      return;
+    }
+    if (_selectedCategory == null) {
+      _showSnackBar('Pilih kategori');
+      return;
+    }
+
+    setState(() => _isLoading = true);
+    FocusScope.of(context).unfocus();
+
+    // ... Firebase save logic
   }
 
   void _showSnackBar(String message) {
