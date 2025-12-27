@@ -370,5 +370,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildTransactionItem(Transaction transaction) => Container();
+  Widget _buildTransactionItem(Transaction transaction) {
+    final isIncome = transaction.type == TransactionType.income;
+    final dateFormat = DateFormat('dd/MM/yyyy');
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      leading: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          color: isIncome
+              ? AppTheme.incomeGreenLight
+              : AppTheme.expenseRedLight,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(
+          Transaction.getCategoryIcon(transaction.category),
+          color: isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed,
+          size: 22,
+        ),
+      ),
+      title: Text(transaction.category, style: AppTheme.titleMedium),
+      subtitle: Text(
+        dateFormat.format(transaction.date),
+        style: AppTheme.bodyMedium,
+      ),
+      trailing: Text(
+        '${isIncome ? '+' : '-'} ${formatCurrency(transaction.amount)}',
+        style: AppTheme.titleMedium.copyWith(
+          color: isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed,
+        ),
+      ),
+    );
+  }
 }
