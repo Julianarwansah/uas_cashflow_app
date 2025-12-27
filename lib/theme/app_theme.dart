@@ -60,4 +60,22 @@ class AppTheme {
     fontWeight: FontWeight.bold,
     color: textWhite,
   );
+
+  static TextStyle get headlineMedium => GoogleFonts.poppins(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    color: textPrimary,
+  );
+
+  static TextStyle get titleLarge => GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: textPrimary,
+  );
+
+  static TextStyle get titleMedium => GoogleFonts.poppins(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: textPrimary,
+  );
 }
