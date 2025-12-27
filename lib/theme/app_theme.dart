@@ -78,4 +78,28 @@ class AppTheme {
     fontWeight: FontWeight.w600,
     color: textPrimary,
   );
+
+  static TextStyle get bodyLarge => GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: textPrimary,
+  );
+
+  static TextStyle get bodyMedium => GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: textSecondary,
+  );
+
+  static TextStyle get labelLarge => GoogleFonts.inter(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: textPrimary,
+  );
+
+  static TextStyle get labelMedium => GoogleFonts.inter(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: textSecondary,
+  );
 }
