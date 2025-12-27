@@ -8,6 +8,8 @@ import '../theme/app_theme.dart';
 import '../models/transaction.dart';
 import '../services/notification_service.dart';
 
+// ... class and imports same as before
+
 class TransactionFormScreen extends StatefulWidget {
   final Transaction? transaction;
   final VoidCallback? onSuccess;
@@ -19,7 +21,8 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
-  // ... (all previous code)
+  // ... state, variables, helpers, future methods
+
   bool _isIncome = true;
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
@@ -52,6 +55,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   List<String> get categories =>
       _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
 
+  // ... Helpers and Actions (formatCurrency, _selectDate, _saveTransaction, _deleteTransaction, _showSnackBar)
   String formatCurrency(String value) {
     if (value.isEmpty) return '';
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
@@ -85,6 +89,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Future<void> _saveTransaction() async {
+    // ... logic
     if (_amountController.text.isEmpty) {
       _showSnackBar('Masukkan nominal transaksi');
       return;
@@ -235,8 +240,189 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     );
   }
 
+  // ... Build method
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppTheme.scaffoldBackground,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: AppTheme.softShadow,
+            ),
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 18,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          isEditing ? 'Edit Transaksi' : 'Tambah Transaksi',
+          style: AppTheme.titleLarge,
+        ),
+        centerTitle: true,
+        actions: isEditing
+            ? [
+                IconButton(
+                  icon: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppTheme.expenseRedLight,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.delete_outline_rounded,
+                      size: 20,
+                      color: AppTheme.expenseRed,
+                    ),
+                  ),
+                  onPressed: _deleteTransaction,
+                ),
+                const SizedBox(width: 8),
+              ]
+            : null,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTypeToggle(),
+            const SizedBox(height: 24),
+            _buildAmountField(),
+            const SizedBox(height: 20),
+            _buildCategorySelector(),
+            const SizedBox(height: 20),
+            _buildDateSelector(),
+            const SizedBox(height: 20),
+            _buildNoteField(),
+            const SizedBox(height: 32),
+            _buildSaveButton(),
+            if (isEditing) ...[const SizedBox(height: 16), _buildAuditInfo()],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypeToggle() {
+    return Container(
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: AppTheme.softShadow,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isIncome = true;
+                  _selectedCategory = null;
+                });
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: BoxDecoration(
+                  color: _isIncome ? AppTheme.incomeGreen : Colors.transparent,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.arrow_downward_rounded,
+                      color: _isIncome ? Colors.white : AppTheme.textSecondary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Pemasukan',
+                      style: AppTheme.labelLarge.copyWith(
+                        color: _isIncome
+                            ? Colors.white
+                            : AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isIncome = false;
+                  _selectedCategory = null;
+                });
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: BoxDecoration(
+                  color: !_isIncome ? AppTheme.expenseRed : Colors.transparent,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.arrow_upward_rounded,
+                      color: !_isIncome ? Colors.white : AppTheme.textSecondary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Pengeluaran',
+                      style: AppTheme.labelLarge.copyWith(
+                        color: !_isIncome
+                            ? Colors.white
+                            : AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmountField() {
+    return Container();
+  }
+
+  Widget _buildCategorySelector() {
+    return Container();
+  }
+
+  Widget _buildDateSelector() {
+    return Container();
+  }
+
+  Widget _buildNoteField() {
+    return Container();
+  }
+
+  Widget _buildSaveButton() {
+    return Container();
+  }
+
+  Widget _buildAuditInfo() {
     return Container();
   }
 }
