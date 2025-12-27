@@ -69,13 +69,26 @@ class _CashflowScreenState extends State<CashflowScreen>
       body: SafeArea(
         child: Column(
           children: [
-            // Header
+            _buildHeader(),
             // Filter
             // List
           ],
         ),
       ),
       // FAB
+    );
+  }
+
+  Widget _buildHeader() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Riwayat Transaksi', style: AppTheme.headlineMedium),
+          // Actions
+        ],
+      ),
     );
   }
 }
