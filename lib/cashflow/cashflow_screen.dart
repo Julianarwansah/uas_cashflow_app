@@ -159,6 +159,7 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   Widget _buildTransactionList() {
+    // ... same as before
     return StreamBuilder<List<Transaction>>(
       stream: _transactionsStream,
       builder: (context, snapshot) {
@@ -201,8 +202,114 @@ class _CashflowScreenState extends State<CashflowScreen>
           );
         }
 
-        return Container(); // Coming soon
+        // Group transactions by date
+        final groupedTransactions = <String, List<Transaction>>{};
+        final dateFormat = DateFormat('dd/MM/yyyy');
+
+        for (var transaction in transactions) {
+          final dateKey = dateFormat.format(transaction.date);
+          groupedTransactions.putIfAbsent(dateKey, () => []);
+          groupedTransactions[dateKey]!.add(transaction);
+        }
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(20),
+          itemCount: groupedTransactions.length,
+          itemBuilder: (context, index) {
+            final date = groupedTransactions.keys.elementAt(index);
+            final dayTransactions = groupedTransactions[date]!;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Text(
+                    date,
+                    style: AppTheme.labelLarge.copyWith(
+                      color: AppTheme.textSecondary,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: AppTheme.softShadow,
+                  ),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: dayTransactions.length,
+                    separatorBuilder: (_, __) => Divider(
+                      height: 1,
+                      color: AppTheme.softBlue.withValues(alpha: 0.5),
+                      indent: 72,
+                    ),
+                    itemBuilder: (context, i) {
+                      return _buildTransactionItem(dayTransactions[i]);
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        );
       },
+    );
+  }
+
+  Widget _buildTransactionItem(Transaction transaction) {
+    final isIncome = transaction.type == TransactionType.income;
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                TransactionFormScreen(transaction: transaction),
+          ),
+        );
+      },
+      leading: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          color: isIncome
+              ? AppTheme.incomeGreenLight
+              : AppTheme.expenseRedLight,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(
+          Transaction.getCategoryIcon(transaction.category),
+          color: isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed,
+          size: 22,
+        ),
+      ),
+      title: Text(transaction.category, style: AppTheme.titleMedium),
+      subtitle: transaction.note != null
+          ? Text(
+              transaction.note!,
+              style: AppTheme.bodyMedium,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${isIncome ? '+' : '-'} ${formatCurrency(transaction.amount)}',
+            style: AppTheme.titleMedium.copyWith(
+              color: isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Icon(Icons.chevron_right_rounded, color: AppTheme.textSecondary),
+        ],
+      ),
     );
   }
 }
