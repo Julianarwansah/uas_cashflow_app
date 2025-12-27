@@ -327,5 +327,48 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildRecentActivity(List<Transaction> transactions) => Container();
+  Widget _buildRecentActivity(List<Transaction> recentTransactions) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Aktivitas Terkini', style: AppTheme.titleLarge),
+            TextButton(
+              onPressed: widget.onViewAllTap,
+              child: Text(
+                'Lihat Semua',
+                style: AppTheme.labelLarge.copyWith(color: AppTheme.accentBlue),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: AppTheme.softShadow,
+          ),
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: recentTransactions.length,
+            separatorBuilder: (_, __) => Divider(
+              height: 1,
+              color: AppTheme.softBlue.withValues(alpha: 0.5),
+              indent: 72,
+            ),
+            itemBuilder: (context, index) {
+              final transaction = recentTransactions[index];
+              return _buildTransactionItem(transaction);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTransactionItem(Transaction transaction) => Container();
 }
