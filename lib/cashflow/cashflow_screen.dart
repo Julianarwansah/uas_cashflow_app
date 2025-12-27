@@ -70,7 +70,7 @@ class _CashflowScreenState extends State<CashflowScreen>
         child: Column(
           children: [
             _buildHeader(),
-            // Filter
+            _buildFilterTabs(),
             // List
           ],
         ),
@@ -122,6 +122,35 @@ class _CashflowScreenState extends State<CashflowScreen>
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterTabs() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: AppTheme.softShadow,
+      ),
+      child: TabBar(
+        controller: _tabController,
+        indicator: BoxDecoration(
+          color: AppTheme.accentBlue,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: Colors.transparent,
+        labelColor: Colors.white,
+        unselectedLabelColor: AppTheme.textSecondary,
+        labelStyle: AppTheme.labelLarge,
+        padding: const EdgeInsets.all(6),
+        tabs: const [
+          Tab(text: 'Semua'),
+          Tab(text: 'Masuk'),
+          Tab(text: 'Keluar'),
         ],
       ),
     );
