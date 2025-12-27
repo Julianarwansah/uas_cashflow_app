@@ -157,8 +157,28 @@ class _HomeScreenState extends State<HomeScreen> {
             Text('Dashboard Keuangan', style: AppTheme.headlineMedium),
           ],
         ),
-        // Placeholders
-        Container(),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NotificationScreen(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: AppTheme.softShadow,
+            ),
+            child: Icon(
+              Icons.notifications_outlined,
+              color: AppTheme.accentBlue,
+            ),
+          ),
+        ),
       ],
     );
   }
