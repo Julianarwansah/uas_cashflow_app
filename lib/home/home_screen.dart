@@ -79,4 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final formatter = NumberFormat.currency(symbol: 'Rp ', decimalDigits: 0);
     return formatter.format(amount);
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(backgroundColor: AppTheme.scaffoldBackground);
+  }
 }
