@@ -82,6 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: AppTheme.scaffoldBackground);
+    return Scaffold(
+      backgroundColor: AppTheme.scaffoldBackground,
+      body: StreamBuilder<List<Transaction>>(
+        stream: _transactionsStream,
+        builder: (context, snapshot) {
+          return Container(); // Placeholder
+        },
+      ),
+    );
   }
 }
