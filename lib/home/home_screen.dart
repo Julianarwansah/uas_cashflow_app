@@ -44,4 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
           }).toList();
         });
   }
+
+  double _calculateTotalBalance(List<Transaction> transactions) {
+    return transactions.fold(0, (total, t) {
+      return total + (t.type == TransactionType.income ? t.amount : -t.amount);
+    });
+  }
 }
