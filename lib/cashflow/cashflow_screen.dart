@@ -13,3 +13,11 @@ class CashflowScreen extends StatefulWidget {
   @override
   State<CashflowScreen> createState() => _CashflowScreenState();
 }
+
+class _CashflowScreenState extends State<CashflowScreen>
+    with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
