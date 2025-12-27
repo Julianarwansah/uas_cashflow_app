@@ -406,7 +406,6 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildAmountField() {
-    // ... amount field
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -453,7 +452,6 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildCategorySelector() {
-    // ... category selector
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -585,10 +583,59 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildSaveButton() {
-    return Container();
+    return SizedBox(
+      width: double.infinity,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: AppTheme.primaryGradient,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.accentBlue.withValues(alpha: 0.4),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: ElevatedButton(
+          onPressed: _isLoading ? null : _saveTransaction,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            padding: const EdgeInsets.symmetric(vertical: 18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          child: _isLoading
+              ? const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+              : Text(
+                  isEditing ? 'Perbarui Transaksi' : 'Simpan Transaksi',
+                  style: AppTheme.titleMedium.copyWith(color: Colors.white),
+                ),
+        ),
+      ),
+    );
   }
 
   Widget _buildAuditInfo() {
-    return Container();
+    if (widget.transaction == null) return const SizedBox();
+    final dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+    return Center(
+      child: Text(
+        'Dibuat pada ${dateFormat.format(widget.transaction!.createdAt)}',
+        style: AppTheme.bodyMedium.copyWith(
+          color: AppTheme.textSecondary.withValues(alpha: 0.7),
+          fontSize: 12,
+        ),
+      ),
+    );
   }
 }
