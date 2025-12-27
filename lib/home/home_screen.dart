@@ -145,8 +145,24 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Placeholders
-  Widget _buildHeader() => Container();
+  Widget _buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Selamat Datang! 👋', style: AppTheme.bodyMedium),
+            const SizedBox(height: 4),
+            Text('Dashboard Keuangan', style: AppTheme.headlineMedium),
+          ],
+        ),
+        // Placeholders
+        Container(),
+      ],
+    );
+  }
+
   Widget _buildBalanceCard(double balance) => Container();
   Widget _buildQuickStats(double income, double expense) => Container();
   Widget _buildRecentActivity(List<Transaction> transactions) => Container();
