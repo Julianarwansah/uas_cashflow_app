@@ -124,5 +124,67 @@ class AppTheme {
       surface: scaffoldBackground,
     ),
     scaffoldBackgroundColor: scaffoldBackground,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+      titleTextStyle: titleLarge.copyWith(color: textPrimary),
+      iconTheme: const IconThemeData(color: textPrimary),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: accentBlue,
+      foregroundColor: textWhite,
+      elevation: 8,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: cardBackground,
+      selectedItemColor: accentBlue,
+      unselectedItemColor: textSecondary,
+      type: BottomNavigationBarType.fixed,
+      elevation: 20,
+      selectedLabelStyle: GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle: GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+    cardTheme: CardThemeData(
+      color: cardBackground,
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: softBlue),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: softBlue),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: accentBlue, width: 2),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: accentBlue,
+        foregroundColor: textWhite,
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        textStyle: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
   );
 }
