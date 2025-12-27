@@ -26,6 +26,21 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() => _selectedFilter = _tabController.index);
+    });
+
+    _initStream();
+  }
+
+  void _initStream() {
+    // Placeholder
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container();
   }
