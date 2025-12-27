@@ -183,7 +183,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBalanceCard(double balance) => Container();
+  Widget _buildBalanceCard(double totalBalance) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: AppTheme.cardGradient,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: AppTheme.cardShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Placeholders
+          Container(),
+        ],
+      ),
+    );
+  }
+
   Widget _buildQuickStats(double income, double expense) => Container();
   Widget _buildRecentActivity(List<Transaction> transactions) => Container();
 }
