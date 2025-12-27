@@ -19,7 +19,7 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
-  // ... variables
+  // ... (previous variables and methods)
   bool _isIncome = true;
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
@@ -52,7 +52,6 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   List<String> get categories =>
       _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
 
-  // ... helpers
   String formatCurrency(String value) {
     if (value.isEmpty) return '';
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
@@ -98,7 +97,82 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     setState(() => _isLoading = true);
     FocusScope.of(context).unfocus();
 
-    // ... Firebase save logic
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        _showSnackBar('User tidak ditemukan, silakan login ulang');
+        return;
+      }
+
+      final amount = double.parse(
+        _amountController.text.replaceAll('.', '').replaceAll(',', ''),
+      );
+
+      final transactionRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('transactions');
+
+      if (isEditing) {
+        final updatedTransaction = widget.transaction!.copyWith(
+          amount: amount,
+          category: _selectedCategory,
+          date: _selectedDate,
+          type: _isIncome ? TransactionType.income : TransactionType.expense,
+          note: _noteController.text,
+        );
+
+        await transactionRef
+            .doc(widget.transaction!.id)
+            .update(updatedTransaction.toMap())
+            .timeout(const Duration(seconds: 5));
+      } else {
+        final newTransaction = Transaction(
+          id: '',
+          amount: amount,
+          category: _selectedCategory!,
+          date: _selectedDate,
+          type: _isIncome ? TransactionType.income : TransactionType.expense,
+          note: _noteController.text,
+        );
+
+        await transactionRef
+            .add(newTransaction.toMap())
+            .timeout(const Duration(seconds: 5));
+      }
+
+      await NotificationService().showTransactionNotification(
+        amount: amount,
+        isIncome: _isIncome,
+      );
+
+      if (mounted) {
+        Navigator.pop(context);
+        widget.onSuccess?.call();
+      }
+    } on TimeoutException catch (_) {
+      if (mounted) {
+        Navigator.pop(context);
+        widget.onSuccess?.call();
+        _showSnackBar('Disimpan (Menunggu koneksi)');
+      }
+    } catch (e) {
+      if (e is TimeoutException || e.toString().contains('TimeoutException')) {
+        if (mounted) {
+          Navigator.pop(context);
+          widget.onSuccess?.call();
+          _showSnackBar('Disimpan (Menunggu koneksi)');
+        }
+      } else {
+        if (mounted) {
+          _showSnackBar('Gagal menyimpan transaksi: $e');
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   void _showSnackBar(String message) {
