@@ -112,10 +112,40 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          gradient: AppTheme.primaryGradient,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.accentBlue.withValues(alpha: 0.4),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransactionFormScreen(
+                  onSuccess: () {
+                    widget.onViewAllTap?.call();
+                  },
+                ),
+              ),
+            );
+          },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: const Icon(Icons.add_rounded, size: 28),
+        ),
+      ),
     );
   }
 
-  // Placeholders to allow compilation/commit
+  // Placeholders
   Widget _buildHeader() => Container();
   Widget _buildBalanceCard(double balance) => Container();
   Widget _buildQuickStats(double income, double expense) => Container();
