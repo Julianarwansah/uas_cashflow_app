@@ -75,12 +75,11 @@ class _CashflowScreenState extends State<CashflowScreen>
           ],
         ),
       ),
-      // FAB
+      floatingActionButton: _buildFAB(),
     );
   }
 
   Widget _buildHeader() {
-    // ... same as before
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
@@ -129,7 +128,6 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   Widget _buildFilterTabs() {
-    // ... same as before
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
@@ -159,7 +157,6 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   Widget _buildTransactionList() {
-    // ... same as before
     return StreamBuilder<List<Transaction>>(
       stream: _transactionsStream,
       builder: (context, snapshot) {
@@ -309,6 +306,35 @@ class _CashflowScreenState extends State<CashflowScreen>
           const SizedBox(width: 8),
           Icon(Icons.chevron_right_rounded, color: AppTheme.textSecondary),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFAB() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: AppTheme.primaryGradient,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.accentBlue.withValues(alpha: 0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const TransactionFormScreen(),
+            ),
+          );
+        },
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: const Icon(Icons.add_rounded, size: 28),
       ),
     );
   }
