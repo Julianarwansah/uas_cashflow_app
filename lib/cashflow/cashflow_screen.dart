@@ -129,6 +129,7 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   Widget _buildFilterTabs() {
+    // ... same as before
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
@@ -170,6 +171,36 @@ class _CashflowScreenState extends State<CashflowScreen>
         }
 
         final allTransactions = snapshot.data ?? [];
+
+        // Client-side filtering
+        final transactions = allTransactions.where((t) {
+          if (_selectedFilter == 1) return t.type == TransactionType.income;
+          if (_selectedFilter == 2) return t.type == TransactionType.expense;
+          return true;
+        }).toList();
+
+        if (transactions.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.receipt_long_outlined,
+                  size: 80,
+                  color: AppTheme.textSecondary.withValues(alpha: 0.3),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Belum ada transaksi',
+                  style: AppTheme.titleMedium.copyWith(
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
         return Container(); // Coming soon
       },
     );
