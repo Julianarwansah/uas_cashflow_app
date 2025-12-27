@@ -93,9 +93,31 @@ class _HomeScreenState extends State<HomeScreen> {
           final monthlyExpense = _calculateMonthlyExpense(transactions);
           final recentTransactions = transactions.take(5).toList();
 
-          return Container(); // Placeholder
+          return SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  const SizedBox(height: 24),
+                  _buildBalanceCard(totalBalance),
+                  const SizedBox(height: 20),
+                  _buildQuickStats(monthlyIncome, monthlyExpense),
+                  const SizedBox(height: 24),
+                  _buildRecentActivity(recentTransactions),
+                ],
+              ),
+            ),
+          );
         },
       ),
     );
   }
+
+  // Placeholders to allow compilation/commit
+  Widget _buildHeader() => Container();
+  Widget _buildBalanceCard(double balance) => Container();
+  Widget _buildQuickStats(double income, double expense) => Container();
+  Widget _buildRecentActivity(List<Transaction> transactions) => Container();
 }
