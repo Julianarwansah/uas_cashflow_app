@@ -19,6 +19,35 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
+  bool _isIncome = true;
+  final _amountController = TextEditingController();
+  final _noteController = TextEditingController();
+  String? _selectedCategory;
+  DateTime _selectedDate = DateTime.now();
+  bool _isLoading = false;
+
+  bool get isEditing => widget.transaction != null;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.transaction != null) {
+      final t = widget.transaction!;
+      _isIncome = t.type == TransactionType.income;
+      _amountController.text = t.amount.toStringAsFixed(0);
+      _noteController.text = t.note ?? '';
+      _selectedCategory = t.category;
+      _selectedDate = t.date;
+    }
+  }
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
