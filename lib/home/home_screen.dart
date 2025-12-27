@@ -24,4 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _initStream();
   }
+
+  void _initStream() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      _transactionsStream = Stream.value([]);
+      return;
+    }
+  }
 }
