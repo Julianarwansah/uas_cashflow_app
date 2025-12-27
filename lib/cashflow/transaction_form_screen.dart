@@ -19,7 +19,8 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
-  // ... (all previous code)
+  // ... variables, state, logic
+
   bool _isIncome = true;
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
@@ -52,6 +53,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   List<String> get categories =>
       _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
 
+  // ... helpers and async methods (omitted for brevity in this chunk, but present in context)
   String formatCurrency(String value) {
     if (value.isEmpty) return '';
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
@@ -237,6 +239,101 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppTheme.scaffoldBackground,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: AppTheme.softShadow,
+            ),
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 18,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          isEditing ? 'Edit Transaksi' : 'Tambah Transaksi',
+          style: AppTheme.titleLarge,
+        ),
+        centerTitle: true,
+        actions: isEditing
+            ? [
+                IconButton(
+                  icon: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppTheme.expenseRedLight,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.delete_outline_rounded,
+                      size: 20,
+                      color: AppTheme.expenseRed,
+                    ),
+                  ),
+                  onPressed: _deleteTransaction,
+                ),
+                const SizedBox(width: 8),
+              ]
+            : null,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTypeToggle(),
+            const SizedBox(height: 24),
+            _buildAmountField(),
+            const SizedBox(height: 20),
+            _buildCategorySelector(),
+            const SizedBox(height: 20),
+            _buildDateSelector(),
+            const SizedBox(height: 20),
+            _buildNoteField(),
+            const SizedBox(height: 32),
+            _buildSaveButton(),
+            if (isEditing) ...[const SizedBox(height: 16), _buildAuditInfo()],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypeToggle() {
+    return Container();
+  }
+
+  Widget _buildAmountField() {
+    return Container();
+  }
+
+  Widget _buildCategorySelector() {
+    return Container();
+  }
+
+  Widget _buildDateSelector() {
+    return Container();
+  }
+
+  Widget _buildNoteField() {
+    return Container();
+  }
+
+  Widget _buildSaveButton() {
+    return Container();
+  }
+
+  Widget _buildAuditInfo() {
     return Container();
   }
 }
