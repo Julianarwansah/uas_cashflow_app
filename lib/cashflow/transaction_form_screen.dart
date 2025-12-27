@@ -55,7 +55,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   List<String> get categories =>
       _isIncome ? Transaction.incomeCategories : Transaction.expenseCategories;
 
-  // ... Helpers and Actions (formatCurrency, _selectDate, _saveTransaction, _deleteTransaction, _showSnackBar)
+  // ... Helpers and Actions are same as last step, ensuring they are present
   String formatCurrency(String value) {
     if (value.isEmpty) return '';
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
@@ -89,7 +89,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Future<void> _saveTransaction() async {
-    // ... logic
+    // ... logic (same as before)
     if (_amountController.text.isEmpty) {
       _showSnackBar('Masukkan nominal transaksi');
       return;
@@ -181,6 +181,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Future<void> _deleteTransaction() async {
+    // ... logic (same as before)
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -240,12 +241,12 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     );
   }
 
-  // ... Build method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.scaffoldBackground,
       appBar: AppBar(
+        // ... AppBar content same as before
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -314,6 +315,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildTypeToggle() {
+    // ... Type toggle same as before
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
@@ -403,11 +405,104 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   }
 
   Widget _buildAmountField() {
-    return Container();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Nominal', style: AppTheme.labelLarge),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: AppTheme.softShadow,
+          ),
+          child: TextField(
+            controller: _amountController,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            style: AppTheme.amountMedium.copyWith(
+              color: _isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed,
+            ),
+            decoration: InputDecoration(
+              prefixText: 'Rp ',
+              prefixStyle: AppTheme.amountMedium.copyWith(
+                color: AppTheme.textSecondary,
+              ),
+              hintText: '0',
+              hintStyle: AppTheme.amountMedium.copyWith(
+                color: AppTheme.textSecondary.withValues(alpha: 0.5),
+              ),
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.all(20),
+            ),
+            onChanged: (value) {
+              final formatted = formatCurrency(value);
+              if (formatted != value) {
+                _amountController.value = TextEditingValue(
+                  text: formatted,
+                  selection: TextSelection.collapsed(offset: formatted.length),
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildCategorySelector() {
-    return Container();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Kategori', style: AppTheme.labelLarge),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: categories.map((category) {
+            final isSelected = _selectedCategory == category;
+            return GestureDetector(
+              onTap: () => setState(() => _selectedCategory = category),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? (_isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: AppTheme.softShadow,
+                  border: Border.all(
+                    color: isSelected ? Colors.transparent : AppTheme.softBlue,
+                    width: 1,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Transaction.getCategoryIcon(category),
+                      size: 18,
+                      color: isSelected ? Colors.white : AppTheme.textSecondary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      category,
+                      style: AppTheme.labelLarge.copyWith(
+                        color: isSelected ? Colors.white : AppTheme.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 
   Widget _buildDateSelector() {
