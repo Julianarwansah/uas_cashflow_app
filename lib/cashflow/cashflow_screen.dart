@@ -42,7 +42,19 @@ class _CashflowScreenState extends State<CashflowScreen>
       _transactionsStream = Stream.value([]);
       return;
     }
-    // Query placeholder
+
+    // Fetch all transactions, ordered by date
+    _transactionsStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('transactions')
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs.map((doc) {
+            return Transaction.fromMap(doc.data(), doc.id);
+          }).toList();
+        });
   }
 
   @override
