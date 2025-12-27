@@ -294,6 +294,38 @@ class _HomeScreenState extends State<HomeScreen> {
     IconData icon,
     Color iconColor,
     Color bgColor,
-  ) => Container();
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: AppTheme.softShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: iconColor, size: 20),
+          ),
+          const SizedBox(height: 12),
+          Text(title, style: AppTheme.bodyMedium),
+          const SizedBox(height: 4),
+          Text(
+            amount,
+            style: AppTheme.titleMedium.copyWith(color: iconColor),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildRecentActivity(List<Transaction> transactions) => Container();
 }
