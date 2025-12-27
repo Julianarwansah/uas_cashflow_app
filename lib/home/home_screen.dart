@@ -262,6 +262,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildQuickStats(double income, double expense) => Container();
+  Widget _buildQuickStats(double monthlyIncome, double monthlyExpense) {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildStatCard(
+            'Pemasukan',
+            formatCurrency(monthlyIncome),
+            Icons.arrow_downward_rounded,
+            AppTheme.incomeGreen,
+            AppTheme.incomeGreenLight,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: _buildStatCard(
+            'Pengeluaran',
+            formatCurrency(monthlyExpense),
+            Icons.arrow_upward_rounded,
+            AppTheme.expenseRed,
+            AppTheme.expenseRedLight,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatCard(
+    String title,
+    String amount,
+    IconData icon,
+    Color iconColor,
+    Color bgColor,
+  ) => Container();
   Widget _buildRecentActivity(List<Transaction> transactions) => Container();
 }
