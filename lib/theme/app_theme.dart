@@ -114,4 +114,15 @@ class AppTheme {
     fontWeight: FontWeight.bold,
     color: textPrimary,
   );
+
+  static ThemeData get themeData => ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryBlue,
+      primary: primaryBlue,
+      secondary: accentBlue,
+      surface: scaffoldBackground,
+    ),
+    scaffoldBackgroundColor: scaffoldBackground,
+  );
 }
