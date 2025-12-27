@@ -37,7 +37,12 @@ class _CashflowScreenState extends State<CashflowScreen>
   }
 
   void _initStream() {
-    // Placeholder
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      _transactionsStream = Stream.value([]);
+      return;
+    }
+    // Query placeholder
   }
 
   @override
