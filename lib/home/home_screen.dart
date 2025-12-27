@@ -50,4 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
       return total + (t.type == TransactionType.income ? t.amount : -t.amount);
     });
   }
+
+  double _calculateMonthlyIncome(List<Transaction> transactions) {
+    final now = DateTime.now();
+    return transactions
+        .where(
+          (t) =>
+              t.type == TransactionType.income &&
+              t.date.month == now.month &&
+              t.date.year == now.year,
+        )
+        .fold(0, (total, t) => total + t.amount);
+  }
 }
