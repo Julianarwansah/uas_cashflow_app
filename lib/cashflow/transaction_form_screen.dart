@@ -19,6 +19,7 @@ class TransactionFormScreen extends StatefulWidget {
 }
 
 class _TransactionFormScreenState extends State<TransactionFormScreen> {
+  // ... (previous variables)
   bool _isIncome = true;
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
@@ -56,6 +57,31 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
     final number = int.tryParse(value.replaceAll('.', '')) ?? 0;
     final formatter = NumberFormat('#,###');
     return formatter.format(number);
+  }
+
+  Future<void> _selectDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppTheme.accentBlue,
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: AppTheme.textPrimary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null) {
+      setState(() => _selectedDate = picked);
+    }
   }
 
   void _showSnackBar(String message) {
