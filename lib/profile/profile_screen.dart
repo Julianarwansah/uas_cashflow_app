@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 24),
               _buildProfileCard(user),
               const SizedBox(height: 24),
-              // _buildMenuSection(context),
+              _buildMenuSection(context),
             ],
           ),
         ),
@@ -156,6 +156,21 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMenuSection(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: AppTheme.softShadow,
+      ),
+      child: Column(
+        children: [
+          // Items will be added in next step
         ],
       ),
     );
