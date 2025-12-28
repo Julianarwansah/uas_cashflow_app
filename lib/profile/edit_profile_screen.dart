@@ -76,6 +76,51 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
+  Future<void> _saveProfile() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.updateDisplayName(_nameController.text.trim());
+
+        final newEmail = _emailController.text.trim();
+        if (newEmail != user.email && newEmail.isNotEmpty) {
+          await user.verifyBeforeUpdateEmail(newEmail);
+          _showSnackBar('Email verifikasi dikirim ke $newEmail');
+        }
+
+        if (_newPasswordController.text.isNotEmpty) {
+          if (_newPasswordController.text != _confirmPasswordController.text) {
+            _showSnackBar('Password baru tidak cocok');
+            setState(() => _isLoading = false);
+            return;
+          }
+          if (_newPasswordController.text.length < 6) {
+            _showSnackBar('Password minimal 6 karakter');
+            setState(() => _isLoading = false);
+            return;
+          }
+
+          await user.updatePassword(_newPasswordController.text);
+        }
+      }
+
+      if (mounted) {
+        _showSnackBar('Profil berhasil diperbarui');
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      _showSnackBar('Gagal memperbarui profil');
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
