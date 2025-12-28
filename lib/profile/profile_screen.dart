@@ -44,6 +44,20 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  String _getDisplayName(User? user) {
+    if (user == null) return 'Pengguna';
+
+    if (user.displayName != null && user.displayName!.isNotEmpty) {
+      return user.displayName!;
+    }
+
+    if (user.email != null && user.email!.isNotEmpty) {
+      return user.email!.split('@').first;
+    }
+
+    return 'Pengguna';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
