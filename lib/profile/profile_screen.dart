@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               _buildHeader(context),
               const SizedBox(height: 24),
-              // _buildProfileCard(user),
+              _buildProfileCard(user),
               const SizedBox(height: 24),
               // _buildMenuSection(context),
             ],
@@ -106,6 +106,58 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildProfileCard(User? user) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: AppTheme.cardGradient,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: AppTheme.cardShadow,
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.3),
+                width: 2,
+              ),
+            ),
+            child: user?.photoURL != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: Image.network(user!.photoURL!, fit: BoxFit.cover),
+                  )
+                : Icon(Icons.person_rounded, color: Colors.white, size: 36),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _getDisplayName(user),
+                  style: AppTheme.titleLarge.copyWith(color: Colors.white),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  user?.email ?? 'user@example.com',
+                  style: AppTheme.bodyMedium.copyWith(
+                    color: Colors.white.withValues(alpha: 0.8),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
