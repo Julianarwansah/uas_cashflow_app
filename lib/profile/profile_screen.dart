@@ -170,9 +170,63 @@ class ProfileScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Items will be added in next step
+          _buildMenuItem(
+            icon: Icons.person_outline_rounded,
+            title: 'Edit Profil',
+            subtitle: 'Ubah foto dan nama',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditProfileScreen(),
+                ),
+              );
+            },
+          ),
+          _buildMenuItem(
+            icon: Icons.logout_rounded,
+            title: 'Keluar',
+            subtitle: 'Logout dari akun',
+            iconColor: AppTheme.expenseRed,
+            titleColor: AppTheme.expenseRed,
+            onTap: () => _logout(context),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    Color? iconColor,
+    Color? titleColor,
+  }) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      leading: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          color: (iconColor ?? AppTheme.accentBlue).withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(icon, color: iconColor ?? AppTheme.accentBlue),
+      ),
+      title: Text(
+        title,
+        style: AppTheme.titleMedium.copyWith(
+          color: titleColor ?? AppTheme.textPrimary,
+        ),
+      ),
+      subtitle: Text(subtitle, style: AppTheme.bodyMedium),
+      trailing: Icon(
+        Icons.chevron_right_rounded,
+        color: AppTheme.textSecondary,
+      ),
+      onTap: onTap,
     );
   }
 }
