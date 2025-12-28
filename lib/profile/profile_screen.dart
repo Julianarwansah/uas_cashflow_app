@@ -46,20 +46,32 @@ class ProfileScreen extends StatelessWidget {
 
   String _getDisplayName(User? user) {
     if (user == null) return 'Pengguna';
-
     if (user.displayName != null && user.displayName!.isNotEmpty) {
       return user.displayName!;
     }
-
     if (user.email != null && user.email!.isNotEmpty) {
       return user.email!.split('@').first;
     }
-
     return 'Pengguna';
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final user = FirebaseAuth.instance.currentUser;
+
+    return Scaffold(
+      backgroundColor: AppTheme.scaffoldBackground,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
