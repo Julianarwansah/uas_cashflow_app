@@ -39,6 +39,43 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 
+  Future<void> _pickAndUploadImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final File file = File(image.path);
+      final String fileName =
+          'profile_${FirebaseAuth.instance.currentUser!.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      await Supabase.instance.client.storage
+          .from('profile_image')
+          .upload(fileName, file);
+
+      final String imageUrl = Supabase.instance.client.storage
+          .from('profile_image')
+          .getPublicUrl(fileName);
+
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.updatePhotoURL(imageUrl);
+        await user.reload();
+        setState(() {});
+        _showSnackBar('Foto profil berhasil diperbarui');
+      }
+    } catch (e) {
+      _showSnackBar('Gagal mengupload foto: $e');
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
