@@ -66,12 +66,46 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              _buildHeader(context),
               const SizedBox(height: 24),
+              // _buildProfileCard(user),
               const SizedBox(height: 24),
+              // _buildMenuSection(context),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Profil', style: AppTheme.headlineMedium),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NotificationScreen(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: AppTheme.softShadow,
+            ),
+            child: Icon(
+              Icons.notifications_outlined,
+              color: AppTheme.accentBlue,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
