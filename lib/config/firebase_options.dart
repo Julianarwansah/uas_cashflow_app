@@ -11,4 +11,11 @@ class DefaultFirebaseOptions {
     authDomain: 'uas-cashflow-app.firebaseapp.com',
     storageBucket: 'uas-cashflow-app.firebasestorage.app',
   );
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyD0kSCbFNwG9IHQV78aWLfre7xdTloFHi0',
+    appId: '1:712776728248:android:afb109c145ae3612607e4d',
+    messagingSenderId: '712776728248',
+    projectId: 'uas-cashflow-app',
+    storageBucket: 'uas-cashflow-app.firebasestorage.app',
+  );
 }
