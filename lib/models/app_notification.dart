@@ -37,4 +37,16 @@ class AppNotification {
       isIncome: map['isIncome'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'message': message,
+      'createdAt': Timestamp.fromDate(createdAt),
+      'isRead': isRead,
+      'type': type == NotificationType.system ? 'system' : 'transaction',
+      'amount': amount,
+      'isIncome': isIncome,
+    };
+  }
 }
