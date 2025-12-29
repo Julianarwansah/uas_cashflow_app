@@ -96,6 +96,20 @@ class NotificationService {
         android: androidDetails,
         iOS: iosDetails,
       );
+
+      await _notifications!.show(
+        DateTime.now().millisecondsSinceEpoch ~/ 1000,
+        '$type Berhasil Dicatat! ✅',
+        'Transaksi Rp $formattedAmount berhasil dicatat!',
+        notificationDetails,
+      );
+
+      await _saveNotificationToFirestore(
+        title: '$type Berhasil Dicatat! ✅',
+        message: 'Transaksi Rp $formattedAmount berhasil dicatat!',
+        amount: amount,
+        isIncome: isIncome,
+      );
     } catch (e) {
       if (kDebugMode) debugPrint('Notification error: $e');
     }
