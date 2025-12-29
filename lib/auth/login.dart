@@ -60,33 +60,23 @@ class _LoginScreenState extends State<LoginScreen>
     });
 
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passController.text,
       );
-      final user = credential.user;
 
       if (!mounted) return;
 
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Login Berhasil'),
-          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      // Navigate to main navigation on successful login
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     } on FirebaseAuthException catch (e) {
       setState(() => _error = e.message);
     } catch (e) {
       setState(() => _error = e.toString());
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 

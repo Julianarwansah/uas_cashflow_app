@@ -1,16 +1,39 @@
-# uas_cashflow_flutter
+# Cashflow App (Proyek UAS)
 
-A new Flutter project.
+Aplikasi manajemen keuangan pribadi yang komprehensif yang dibangun dengan Flutter. Aplikasi ini membantu pengguna melacak pendapatan dan pengeluaran mereka, memvisualisasikan kesehatan keuangan, dan mengelola anggaran secara efektif.
 
-## Getting Started
+## ✨ Fitur
 
-This project is a starting point for a Flutter application.
+- **Autentikasi Pengguna**: Login dan pendaftaran aman didukung oleh Firebase Auth.
+- **Onboarding**: Layar splash yang menarik untuk menyambut pengguna baru.
+- **Dashboard**: Dashboard intuitif untuk gambaran cepat status keuangan.
+- **Manajemen Transaksi**: Tambah dan kategorikan transaksi pendapatan dan pengeluaran dengan mudah.
+- **Visualisasi Data**: Grafik visual untuk menganalisis kebiasaan belanja menggunakan `fl_chart`.
+- **Notifikasi**: Notifikasi lokal untuk menjaga keterlibatan pengguna.
+- **Sinkronisasi Cloud**: Data disimpan dengan aman menggunakan Firebase Firestore dan Supabase.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Stack Teknologi
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Framework**: [Flutter](https://flutter.dev/)
+- **Bahasa**: Dart
+- **Backend & Auth**: [Firebase](https://firebase.google.com/) (Core, Auth, Firestore) & [Supabase](https://supabase.com/)
+- **Animasi**: [Lottie](https://lottiefiles.com/)
+- **Font**: [Google Fonts](https://fonts.google.com/)
+- **Chart**: [fl_chart](https://pub.dev/packages/fl_chart)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Cara Memulai
+
+1. **Clone repositori**
+   ```bash
+   git clone https://github.com/Julianarwansah/uas_cashflow_app.git
+   ```
+
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Jalankan aplikasi**
+   ```bash
+   flutter run
+   ```
