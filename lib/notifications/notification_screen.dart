@@ -40,4 +40,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
           }).toList();
         });
   }
+
+  Future<void> _markAsRead(String notificationId) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('notifications')
+        .doc(notificationId)
+        .update({'isRead': true});
+  }
 }
