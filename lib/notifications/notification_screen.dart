@@ -71,4 +71,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     await batch.commit();
   }
+
+  Future<void> _deleteNotification(String notificationId) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('notifications')
+        .doc(notificationId)
+        .delete();
+  }
 }
