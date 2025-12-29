@@ -60,4 +60,23 @@ class NotificationService {
       if (kDebugMode) debugPrint('Permission request error: $e');
     }
   }
+
+  Future<void> showTransactionNotification({
+    required double amount,
+    required bool isIncome,
+  }) async {
+    try {
+      if (!_isInitialized || _notifications == null) {
+        await initialize();
+      }
+
+      if (_notifications == null) return;
+
+      final formatter = NumberFormat('#,###', 'id_ID');
+      final formattedAmount = formatter.format(amount);
+      final type = isIncome ? 'Pemasukan' : 'Pengeluaran';
+    } catch (e) {
+      if (kDebugMode) debugPrint('Notification error: $e');
+    }
+  }
 }
