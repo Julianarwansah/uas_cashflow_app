@@ -166,6 +166,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
+          final notifications = snapshot.data ?? [];
+
+          if (notifications.isEmpty) {
+            return const Center(child: Text('Belum ada notifikasi'));
+          }
+
           return const Center(child: Text('Loading...'));
         },
       ),
