@@ -12,4 +12,6 @@ class NotificationScreen extends StatefulWidget {
   State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {}
+class _NotificationScreenState extends State<NotificationScreen> {
+  late Stream<List<AppNotification>> _notificationsStream;
+}
