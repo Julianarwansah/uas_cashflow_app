@@ -100,6 +100,61 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: AppTheme.scaffoldBackground);
+    return Scaffold(
+      backgroundColor: AppTheme.scaffoldBackground,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: AppTheme.softShadow,
+            ),
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: AppTheme.textPrimary,
+              size: 18,
+            ),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text('Notifikasi', style: AppTheme.headlineMedium),
+        centerTitle: true,
+        actions: [
+          PopupMenuButton<String>(
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: AppTheme.softShadow,
+              ),
+              child: Icon(Icons.more_vert_rounded, color: AppTheme.accentBlue),
+            ),
+            onSelected: (value) {
+              if (value == 'read_all') {
+                _markAllAsRead();
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'read_all',
+                child: Row(
+                  children: [
+                    Icon(Icons.done_all_rounded, color: AppTheme.accentBlue),
+                    const SizedBox(width: 12),
+                    Text('Tandai semua dibaca', style: AppTheme.bodyMedium),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
+    );
   }
 }
