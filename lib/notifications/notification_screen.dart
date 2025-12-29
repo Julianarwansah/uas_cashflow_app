@@ -169,17 +169,166 @@ class _NotificationScreenState extends State<NotificationScreen> {
           final notifications = snapshot.data ?? [];
 
           if (notifications.isEmpty) {
-            return const Center(child: Text('Belum ada notifikasi'));
+            return _buildEmptyState();
           }
 
           return ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: notifications.length,
             itemBuilder: (context, index) {
-              return const SizedBox();
+              return _buildNotificationItem(notifications[index]);
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppTheme.softBlue.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Icon(
+              Icons.notifications_off_outlined,
+              size: 64,
+              color: AppTheme.accentBlue.withValues(alpha: 0.5),
+            ),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'Belum ada notifikasi',
+            style: AppTheme.titleLarge.copyWith(color: AppTheme.textSecondary),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Notifikasi transaksi akan muncul di sini',
+            style: AppTheme.bodyMedium.copyWith(color: AppTheme.textSecondary),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNotificationItem(AppNotification notification) {
+    final isIncome = notification.isIncome ?? false;
+
+    return Dismissible(
+      key: Key(notification.id),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: AppTheme.expenseRed,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        alignment: Alignment.centerRight,
+        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
+      ),
+      onDismissed: (_) => _deleteNotification(notification.id),
+      child: GestureDetector(
+        onTap: () {
+          if (!notification.isRead) {
+            _markAsRead(notification.id);
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: notification.isRead
+                ? Colors.white
+                : AppTheme.softBlue.withValues(alpha: 0.3),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: AppTheme.softShadow,
+            border: notification.isRead
+                ? null
+                : Border.all(
+                    color: AppTheme.accentBlue.withValues(alpha: 0.3),
+                    width: 1,
+                  ),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: notification.type == NotificationType.transaction
+                      ? (isIncome
+                            ? AppTheme.incomeGreenLight
+                            : AppTheme.expenseRedLight)
+                      : AppTheme.softBlue,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  notification.type == NotificationType.transaction
+                      ? (isIncome
+                            ? Icons.arrow_downward_rounded
+                            : Icons.arrow_upward_rounded)
+                      : Icons.info_outline_rounded,
+                  color: notification.type == NotificationType.transaction
+                      ? (isIncome ? AppTheme.incomeGreen : AppTheme.expenseRed)
+                      : AppTheme.accentBlue,
+                  size: 22,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            notification.title,
+                            style: AppTheme.titleMedium.copyWith(
+                              fontWeight: notification.isRead
+                                  ? FontWeight.w500
+                                  : FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        if (!notification.isRead)
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: AppTheme.accentBlue,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      notification.message,
+                      style: AppTheme.bodyMedium,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      _formatDate(notification.createdAt),
+                      style: AppTheme.labelMedium.copyWith(
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
