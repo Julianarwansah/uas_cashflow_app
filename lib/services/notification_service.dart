@@ -75,6 +75,27 @@ class NotificationService {
       final formatter = NumberFormat('#,###', 'id_ID');
       final formattedAmount = formatter.format(amount);
       final type = isIncome ? 'Pemasukan' : 'Pengeluaran';
+
+      const androidDetails = AndroidNotificationDetails(
+        'transaction_channel',
+        'Transaksi',
+        channelDescription: 'Notifikasi untuk transaksi',
+        importance: Importance.high,
+        priority: Priority.high,
+        icon: '@mipmap/ic_launcher',
+        playSound: true,
+      );
+
+      const iosDetails = DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      );
+
+      const notificationDetails = NotificationDetails(
+        android: androidDetails,
+        iOS: iosDetails,
+      );
     } catch (e) {
       if (kDebugMode) debugPrint('Notification error: $e');
     }
