@@ -114,4 +114,32 @@ class NotificationService {
       if (kDebugMode) debugPrint('Notification error: $e');
     }
   }
+
+  Future<void> _saveNotificationToFirestore({
+    required String title,
+    required String message,
+    double? amount,
+    bool? isIncome,
+  }) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('notifications')
+          .add({
+            'title': title,
+            'message': message,
+            'createdAt': FieldValue.serverTimestamp(),
+            'isRead': false,
+            'type': 'transaction',
+            'amount': amount,
+            'isIncome': isIncome,
+          });
+    } catch (e) {
+      if (kDebugMode) debugPrint('Save notification error: $e');
+    }
+  }
 }
