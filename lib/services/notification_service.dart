@@ -43,4 +43,21 @@ class NotificationService {
       if (kDebugMode) debugPrint('NotificationService init error: $e');
     }
   }
+
+  Future<void> _requestPermissions() async {
+    if (_notifications == null) return;
+
+    try {
+      final androidPlugin = _notifications!
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+
+      if (androidPlugin != null) {
+        await androidPlugin.requestNotificationsPermission();
+      }
+    } catch (e) {
+      if (kDebugMode) debugPrint('Permission request error: $e');
+    }
+  }
 }
