@@ -172,7 +172,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
             return const Center(child: Text('Belum ada notifikasi'));
           }
 
-          return const Center(child: Text('Loading...'));
+          return ListView.builder(
+            padding: const EdgeInsets.all(20),
+            itemCount: notifications.length,
+            itemBuilder: (context, index) {
+              return const SizedBox();
+            },
+          );
         },
       ),
     );
