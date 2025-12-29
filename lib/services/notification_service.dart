@@ -8,4 +8,8 @@ class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
   factory NotificationService() => _instance;
   NotificationService._internal();
+
+  FlutterLocalNotificationsPlugin? _notifications;
+  bool _isInitialized = false;
+  final _firestore = FirebaseFirestore.instance;
 }
