@@ -97,4 +97,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
       return DateFormat('dd MMM yyyy, HH:mm', 'id_ID').format(date);
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(backgroundColor: AppTheme.scaffoldBackground);
+  }
 }
