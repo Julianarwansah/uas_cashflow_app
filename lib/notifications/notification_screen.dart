@@ -14,4 +14,10 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   late Stream<List<AppNotification>> _notificationsStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _initStream();
+  }
 }
