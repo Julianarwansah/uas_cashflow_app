@@ -22,4 +22,19 @@ class AppNotification {
     this.amount,
     this.isIncome,
   });
+
+  factory AppNotification.fromMap(Map<String, dynamic> map, String id) {
+    return AppNotification(
+      id: id,
+      title: map['title'] ?? '',
+      message: map['message'] ?? '',
+      createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      isRead: map['isRead'] ?? false,
+      type: map['type'] == 'system'
+          ? NotificationType.system
+          : NotificationType.transaction,
+      amount: map['amount']?.toDouble(),
+      isIncome: map['isIncome'],
+    );
+  }
 }
