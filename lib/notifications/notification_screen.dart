@@ -155,6 +155,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
           const SizedBox(width: 8),
         ],
       ),
+      body: StreamBuilder<List<AppNotification>>(
+        stream: _notificationsStream,
+        builder: (context, snapshot) {
+          return const Center(child: Text('Loading...'));
+        },
+      ),
     );
   }
 }
