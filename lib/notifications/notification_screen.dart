@@ -83,4 +83,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
         .doc(notificationId)
         .delete();
   }
+
+  String _formatDate(DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final notifDate = DateTime(date.year, date.month, date.day);
+
+    if (notifDate == today) {
+      return 'Hari ini, ${DateFormat('HH:mm').format(date)}';
+    } else if (notifDate == today.subtract(const Duration(days: 1))) {
+      return 'Kemarin, ${DateFormat('HH:mm').format(date)}';
+    } else {
+      return DateFormat('dd MMM yyyy, HH:mm', 'id_ID').format(date);
+    }
+  }
 }
