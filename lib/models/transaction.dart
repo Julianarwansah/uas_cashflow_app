@@ -66,4 +66,54 @@ class Transaction {
       createdAt: createdAt,
     );
   }
+
+  // Category icons mapping
+  static IconData getCategoryIcon(String category) {
+    switch (category.toLowerCase()) {
+      case 'gaji':
+        return Icons.account_balance_wallet;
+      case 'bonus':
+        return Icons.card_giftcard;
+      case 'makanan':
+        return Icons.restaurant;
+      case 'transportasi':
+        return Icons.directions_car;
+      case 'belanja':
+        return Icons.shopping_bag;
+      case 'hiburan':
+        return Icons.movie;
+      case 'kesehatan':
+        return Icons.local_hospital;
+      case 'pendidikan':
+        return Icons.school;
+      case 'tagihan':
+        return Icons.receipt_long;
+      case 'investasi':
+        return Icons.trending_up;
+      case 'hadiah':
+        return Icons.redeem;
+      case 'lainnya':
+      default:
+        return Icons.category;
+    }
+  }
+
+  static List<String> get incomeCategories => [
+    'Gaji',
+    'Bonus',
+    'Investasi',
+    'Hadiah',
+    'Lainnya',
+  ];
+
+  static List<String> get expenseCategories => [
+    'Makanan',
+    'Transportasi',
+    'Belanja',
+    'Hiburan',
+    'Kesehatan',
+    'Pendidikan',
+    'Tagihan',
+    'Lainnya',
+  ];
 }
