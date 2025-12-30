@@ -190,3 +190,26 @@ class ProfileScreen extends StatelessWidget {
 }
             
   }
+void _showAboutBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context, backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(width: 40, height: 4, margin: const EdgeInsets.only(bottom: 20), decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
+              const Text("About Team", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
+              _buildStudentInfo(name: "Julian Arwansyah", nim: "1123150112", motivation: "\"Jangan menunggu kesempatan, ciptakanlah kesempatan itu sendiri.\"", color: Colors.blue),
+              const SizedBox(height: 10),
+              _buildStudentInfo(name: "Indra Nurul Kusuma", nim: "1123150032", motivation: "\"Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.\"", color: Colors.orange),
+              const SizedBox(height: 20),
+            ],
+          ),
+        );
+      },
+    );
+  }
