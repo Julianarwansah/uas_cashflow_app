@@ -72,9 +72,22 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       
                       const SizedBox(width: 15),
+
+                    // ... Avatar code ...
+                      
+                      // Info User
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text("test", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 4),
+                          Text("test@gmail.com", style: TextStyle(color: Colors.white70, fontSize: 14)),
+                        ],
+                      ),
+
                     ],
                   ),
-                  
+
                   ),
                 const SizedBox(height: 25),
                       child: const Icon(Icons.notifications_none, color: Colors.blue),
