@@ -106,6 +106,21 @@ class ProfileScreen extends StatelessWidget {
                     children: [],
                   ),
                 ),
+                
+                children: [
+                      _buildMenuItem(
+                        icon: Icons.person_outline, iconColor: Colors.blue, bgIconColor: Colors.blue.withValues(alpha: 0.1),
+                        title: "Edit Profil", subtitle: "Ubah foto dan nama", onTap: () {},
+                      ),
+                      const Divider(height: 1, indent: 70, endIndent: 20),
+                      
+                      // Disini nanti tempat About
+
+                      _buildMenuItem(
+                        icon: Icons.logout, iconColor: Colors.red, bgIconColor: Colors.red.withValues(alpha: 0.1),
+                        title: "Keluar", subtitle: "Logout dari akun", onTap: () {},
+                      ),
+                    ],
                     
               ]
               
