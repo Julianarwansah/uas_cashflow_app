@@ -104,7 +104,25 @@ class ProfileScreen extends StatelessWidget {
                 ),
       )
     
-    
-            
+    // ... Penutup method build ...
+
+  Widget _buildMenuItem({
+    required IconData icon, required Color iconColor, required Color bgIconColor,
+    required String title, required String subtitle, required VoidCallback onTap,
+  }) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      onTap: onTap,
+      leading: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(color: bgIconColor, borderRadius: BorderRadius.circular(10)),
+        child: Icon(icon, color: iconColor),
+      ),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87)),
+      subtitle: Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+    );
   }
 }
+
+  }
