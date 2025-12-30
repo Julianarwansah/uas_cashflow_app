@@ -148,7 +148,26 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
-    
+    Widget _buildStudentInfo({required String name, required String nim, required String motivation, required Color color}) {
+    return Card(
+      elevation: 0, color: Colors.grey[50],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(color: Colors.grey.withValues(alpha: 0.2))),
+      child: ExpansionTile(
+        leading: CircleAvatar(backgroundColor: color.withValues(alpha: 0.2), child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
+        title: Text(name, style: const TextStyle(fontWeight: FontWeight.w600)),
+        childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        children: [
+          Row(children: [const Icon(Icons.badge, size: 16, color: Colors.grey), const SizedBox(width: 8), Text("NIM: $nim", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black87))]),
+          const SizedBox(height: 10),
+          Container(
+            width: double.infinity, padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10), border: Border.all(color: color.withValues(alpha: 0.2))),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("Motivation:", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)), const SizedBox(height: 4), Text(motivation, style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.black54, fontSize: 13))]),
+          ),
+        ],
+      ),
+    );
+  }
     // ... Penutup method build ...
 
   Widget _buildMenuItem({
