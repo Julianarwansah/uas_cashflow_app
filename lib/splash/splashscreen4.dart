@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class SplashScreen2 extends StatefulWidget {
-  const SplashScreen2({super.key});
+class SplashScreen4 extends StatefulWidget {
+  const SplashScreen4({super.key});
 
   @override
-  State<SplashScreen2> createState() => _SplashScreen2State();
+  State<SplashScreen4> createState() => _SplashScreen4State();
 }
 
-class _SplashScreen2State extends State<SplashScreen2>
+class _SplashScreen4State extends State<SplashScreen4>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _scaleController;
@@ -39,7 +39,7 @@ class _SplashScreen2State extends State<SplashScreen2>
 
     Future.delayed(const Duration(seconds: 4), () {
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/splash4');
+      Navigator.pushReplacementNamed(context, '/splash3');
     });
   }
 
@@ -79,13 +79,15 @@ class _SplashScreen2State extends State<SplashScreen2>
                   child: SizedBox(
                     width: 140,
                     height: 140,
-                    child: Lottie.asset('assets/animation/Manage_Money.json'),
+                    child: Lottie.asset(
+                      'assets/animation/Document_Invest.json',
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
               const Text(
-                "Kelola Uang",
+                "Investasi Cerdas",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -94,7 +96,7 @@ class _SplashScreen2State extends State<SplashScreen2>
               ),
               const SizedBox(height: 8),
               const Text(
-                "Lebih Mudah",
+                "Kelola Aset Anda",
                 style: TextStyle(fontSize: 18, color: Colors.white70),
               ),
               const SizedBox(height: 32),
@@ -105,7 +107,7 @@ class _SplashScreen2State extends State<SplashScreen2>
               ),
               const SizedBox(height: 8),
               const Text(
-                "Menyiapkan fitur untuk Anda...",
+                "Menyiapkan data investasi...",
                 style: TextStyle(fontSize: 14, color: Colors.white70),
               ),
             ],

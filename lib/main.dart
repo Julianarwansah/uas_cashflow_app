@@ -7,6 +7,7 @@ import 'auth/signup.dart';
 import 'splash/splashscreen1.dart';
 import 'splash/splashscreen2.dart';
 import 'splash/splashscreen3.dart';
+import 'splash/splashscreen4.dart';
 import 'navigation/main_navigation.dart';
 import 'theme/app_theme.dart';
 import 'cashflow/transaction_form_screen.dart';
@@ -24,7 +25,6 @@ void main() async {
     anonKey: 'sb_publishable_6z5_C4-LOGaPeYur_lk9dA_1leKifzM',
   );
 
-  // Initialize notification service
   await NotificationService().initialize();
 
   runApp(const MyApp());
@@ -39,12 +39,11 @@ class MyApp extends StatelessWidget {
       title: 'Cashflow App',
       theme: AppTheme.themeData,
       debugShowCheckedModeBanner: false,
-      // Home pertama
       home: const SplashScreen1(),
-      // Daftarkan route bernama untuk SplashScreen2
       routes: {
         '/splash2': (context) => const SplashScreen2(),
         '/splash3': (context) => const SplashScreen3(),
+        '/splash4': (context) => const SplashScreen4(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/home': (context) => const MainNavigation(),
