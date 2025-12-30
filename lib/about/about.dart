@@ -56,8 +56,26 @@ class ProfileScreen extends StatelessWidget {
                       BoxShadow(color: const Color(0xFF2B65F0).withValues(alpha: 0.3), blurRadius: 15, offset: const Offset(0, 10)),
                     ],
                   ),
-                  child: Row(children: []), // Isi Row Kosong dulu
-                ),
+                  child: Row(
+                    children: [
+                      // Avatar
+                      Container(
+                        width: 60, height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.white, shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                          image: const DecorationImage(
+                            image: NetworkImage('https://i.pravatar.cc/150?img=11'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      
+                      const SizedBox(width: 15),
+                    ],
+                  ),
+                  
+                  ),
                 const SizedBox(height: 25),
                       child: const Icon(Icons.notifications_none, color: Colors.blue),
                   ]
