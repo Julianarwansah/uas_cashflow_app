@@ -133,6 +133,21 @@ class ProfileScreen extends StatelessWidget {
                   
                 ),
       )
+      return Scaffold(
+      body: ..., // code body yg tadi
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: false,
+        currentIndex: 2, 
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: 'Swap'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        ],
+      ),
+    );
     
     // ... Penutup method build ...
 
