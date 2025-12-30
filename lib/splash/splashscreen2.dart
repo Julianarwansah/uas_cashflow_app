@@ -39,7 +39,7 @@ class _SplashScreen2State extends State<SplashScreen2>
 
     Future.delayed(const Duration(seconds: 4), () {
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/splash3');
+      Navigator.pushReplacementNamed(context, '/splash4');
     });
   }
 
