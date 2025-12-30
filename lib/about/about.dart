@@ -93,7 +93,22 @@ class ProfileScreen extends StatelessWidget {
                       child: const Icon(Icons.notifications_none, color: Colors.blue),
                   ]
                     )
+                    // --- Container Menu Putih ---
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(color: Colors.grey.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, 10)),
+                    ],
+                  ),
+                  child: Column(
+                    children: [],
+                  ),
+                ),
+                    
               ]
+              
 
                 ),
                 const SizedBox(height: 20),
@@ -124,5 +139,5 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
+            
   }
