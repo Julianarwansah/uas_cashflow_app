@@ -37,7 +37,95 @@ class ProfileScreen extends StatelessWidget {
                 );
               }
             },
-            child: const Text('Keluar'),
+            child: const Text('Keluar', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Fungsi untuk menampilkan informasi Team (About)
+  void _showAboutTeam(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text("About Team", style: AppTheme.titleLarge),
+            const SizedBox(height: 20),
+            _buildAboutCard(
+              name: "Julian Arwansyah",
+              nim: "1123150112",
+              motivation: "Jangan menunggu kesempatan, ciptakanlah kesempatan itu sendiri.",
+              color: AppTheme.accentBlue,
+            ),
+            const SizedBox(height: 12),
+            _buildAboutCard(
+              name: "Indra Nurul Kusuma",
+              nim: "1123150032",
+              motivation: "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
+              color: Colors.orange,
+            ),
+            const SizedBox(height: 30),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAboutCard({
+    required String name,
+    required String nim,
+    required String motivation,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: color,
+                child: Text(name[0], style: const TextStyle(color: Colors.white)),
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: AppTheme.titleMedium),
+                  Text("NIM: $nim", style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            "\"$motivation\"",
+            style: AppTheme.bodyMedium.copyWith(fontStyle: FontStyle.italic),
           ),
         ],
       ),
@@ -99,7 +187,7 @@ class ProfileScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               boxShadow: AppTheme.softShadow,
             ),
-            child: Icon(
+            child: const Icon(
               Icons.notifications_outlined,
               color: AppTheme.accentBlue,
             ),
@@ -123,10 +211,10 @@ class ProfileScreen extends StatelessWidget {
             width: 72,
             height: 72,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
+              color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: Colors.white.withValues(alpha: 0.3),
+                color: Colors.white.withOpacity(0.3),
                 width: 2,
               ),
             ),
@@ -135,7 +223,7 @@ class ProfileScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18),
                     child: Image.network(user!.photoURL!, fit: BoxFit.cover),
                   )
-                : Icon(Icons.person_rounded, color: Colors.white, size: 36),
+                : const Icon(Icons.person_rounded, color: Colors.white, size: 36),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -150,7 +238,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   user?.email ?? 'user@example.com',
                   style: AppTheme.bodyMedium.copyWith(
-                    color: Colors.white.withValues(alpha: 0.8),
+                    color: Colors.white.withOpacity(0.8),
                   ),
                 ),
               ],
@@ -183,6 +271,15 @@ class ProfileScreen extends StatelessWidget {
               );
             },
           ),
+          const Divider(height: 1, indent: 70),
+          // MODIFIKASI: Penambahan Menu About
+          _buildMenuItem(
+            icon: Icons.info_outline_rounded,
+            title: 'Tentang Kami',
+            subtitle: 'Informasi pengembang aplikasi',
+            onTap: () => _showAboutTeam(context),
+          ),
+          const Divider(height: 1, indent: 70),
           _buildMenuItem(
             icon: Icons.logout_rounded,
             title: 'Keluar',
@@ -210,7 +307,7 @@ class ProfileScreen extends StatelessWidget {
         width: 48,
         height: 48,
         decoration: BoxDecoration(
-          color: (iconColor ?? AppTheme.accentBlue).withValues(alpha: 0.1),
+          color: (iconColor ?? AppTheme.accentBlue).withOpacity(0.1),
           borderRadius: BorderRadius.circular(14),
         ),
         child: Icon(icon, color: iconColor ?? AppTheme.accentBlue),
@@ -222,7 +319,7 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       subtitle: Text(subtitle, style: AppTheme.bodyMedium),
-      trailing: Icon(
+      trailing: const Icon(
         Icons.chevron_right_rounded,
         color: AppTheme.textSecondary,
       ),
