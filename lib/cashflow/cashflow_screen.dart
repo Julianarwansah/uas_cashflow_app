@@ -236,6 +236,64 @@ class _CashflowScreenState extends State<CashflowScreen>
     );
   }
 
+  Future<void> _selectStartDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _startDate ?? DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: _endDate ?? DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppTheme.accentBlue,
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: AppTheme.textPrimary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _startDate = picked;
+        _isDateFilterActive = _startDate != null || _endDate != null;
+      });
+    }
+  }
+
+  Future<void> _selectEndDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _endDate ?? DateTime.now(),
+      firstDate: _startDate ?? DateTime(2020),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppTheme.accentBlue,
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: AppTheme.textPrimary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _endDate = picked;
+        _isDateFilterActive = _startDate != null || _endDate != null;
+      });
+    }
+  }
+
   Widget _buildTransactionList() {
     return StreamBuilder<List<Transaction>>(
       stream: _transactionsStream,
