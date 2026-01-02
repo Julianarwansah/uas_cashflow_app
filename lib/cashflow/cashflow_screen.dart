@@ -294,6 +294,52 @@ class _CashflowScreenState extends State<CashflowScreen>
     }
   }
 
+  Widget _buildDateButton({
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: AppTheme.softBlue.withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: AppTheme.accentBlue.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 16, color: AppTheme.accentBlue),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                label,
+                style: AppTheme.labelMedium.copyWith(
+                  color: AppTheme.textPrimary,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _resetDateFilter() {
+    setState(() {
+      _startDate = null;
+      _endDate = null;
+      _isDateFilterActive = false;
+    });
+  }
+
   Widget _buildTransactionList() {
     return StreamBuilder<List<Transaction>>(
       stream: _transactionsStream,
