@@ -19,6 +19,9 @@ class _CashflowScreenState extends State<CashflowScreen>
   late TabController _tabController;
   int _selectedFilter = 0; // 0: All, 1: Income, 2: Expense
   late Stream<List<Transaction>> _transactionsStream;
+  DateTime? _startDate;
+  DateTime? _endDate;
+  bool _isDateFilterActive = false;
 
   String formatCurrency(double amount) {
     final formatter = NumberFormat.currency(symbol: 'Rp ', decimalDigits: 0);
