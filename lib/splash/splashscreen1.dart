@@ -39,6 +39,7 @@ class _SplashScreen1State extends State<SplashScreen1>
 
     Future.delayed(const Duration(seconds: 4), () {
       if (!mounted) return;
+      // Pastikan rute '/splash2' sudah didefinisikan di main.dart
       Navigator.pushReplacementNamed(context, '/splash2');
     });
   }
@@ -76,11 +77,19 @@ class _SplashScreen1State extends State<SplashScreen1>
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
+                  // --- PERUBAHAN DI SINI ---
                   child: SizedBox(
                     width: 140,
                     height: 140,
-                    child: Lottie.asset('assets/animation/File_Analysis.json'),
+                    // Menggunakan Image.asset sebagai pengganti Lottie.asset
+                    // Pastikan path 'assets/images/logo_global.png' sesuai
+                    // dengan lokasi file Anda dan sudah didaftarkan di pubspec.yaml
+                    child: Image.asset(
+                      'assets/images/logo_global.png',
+                      fit: BoxFit.contain, // Agar gambar pas di dalam kotaknya
+                    ),
                   ),
+                  // -------------------------
                 ),
               ),
               const SizedBox(height: 24),
@@ -102,6 +111,7 @@ class _SplashScreen1State extends State<SplashScreen1>
                 ),
               ),
               const SizedBox(height: 32),
+              // Lottie loading animation di bawah tetap dipertahankan
               SizedBox(
                 width: 70,
                 height: 70,
