@@ -160,6 +160,82 @@ class _CashflowScreenState extends State<CashflowScreen>
     );
   }
 
+  Widget _buildDateFilterSection() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: AppTheme.softShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Filter Tanggal',
+                style: AppTheme.titleMedium.copyWith(
+                  color: AppTheme.textPrimary,
+                ),
+              ),
+              if (_isDateFilterActive)
+                TextButton(
+                  onPressed: _resetDateFilter,
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: Text(
+                    'Reset',
+                    style: AppTheme.labelMedium.copyWith(
+                      color: AppTheme.expenseRed,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildDateButton(
+                  label: _startDate != null
+                      ? DateFormat('dd/MM/yyyy').format(_startDate!)
+                      : 'Dari Tanggal',
+                  icon: Icons.calendar_today_rounded,
+                  onTap: () => _selectStartDate(),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Icon(
+                Icons.arrow_forward,
+                color: AppTheme.textSecondary,
+                size: 20,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildDateButton(
+                  label: _endDate != null
+                      ? DateFormat('dd/MM/yyyy').format(_endDate!)
+                      : 'Sampai Tanggal',
+                  icon: Icons.calendar_today_rounded,
+                  onTap: () => _selectEndDate(),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildTransactionList() {
     return StreamBuilder<List<Transaction>>(
       stream: _transactionsStream,
