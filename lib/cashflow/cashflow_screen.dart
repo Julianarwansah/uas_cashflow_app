@@ -356,9 +356,76 @@ class _CashflowScreenState extends State<CashflowScreen>
 
         // Client-side filtering
         final transactions = allTransactions.where((t) {
+          // Type filter (All/Income/Expense)
+          bool typeMatch = true;
           if (_selectedFilter == 1) return t.type == TransactionType.income;
           if (_selectedFilter == 2) return t.type == TransactionType.expense;
-          return true;
+
+          // Date filter
+          bool dateMatch = true;
+          if (_isDateFilterActive) {
+            if (_startDate != null && _endDate != null) {
+              // Both dates selected
+              final transactionDate = DateTime(
+                t.date.year,
+                t.date.month,
+                t.date.day,
+              );
+              final start = DateTime(
+                _startDate!.year,
+                _startDate!.month,
+                _startDate!.day,
+              );
+              final end = DateTime(
+                _endDate!.year,
+                _endDate!.month,
+                _endDate!.day,
+                23,
+                59,
+                59,
+              );
+              dateMatch =
+                  transactionDate.isAfter(
+                    start.subtract(const Duration(seconds: 1)),
+                  ) &&
+                  transactionDate.isBefore(end.add(const Duration(seconds: 1)));
+            } else if (_startDate != null) {
+              // Only start date selected
+              final transactionDate = DateTime(
+                t.date.year,
+                t.date.month,
+                t.date.day,
+              );
+              final start = DateTime(
+                _startDate!.year,
+                _startDate!.month,
+                _startDate!.day,
+              );
+              dateMatch = transactionDate.isAfter(
+                start.subtract(const Duration(seconds: 1)),
+              );
+            } else if (_endDate != null) {
+              // Only end date selected
+              final transactionDate = DateTime(
+                t.date.year,
+                t.date.month,
+                t.date.day,
+              );
+              final end = DateTime(
+                _endDate!.year,
+                _endDate!.month,
+                _endDate!.day,
+                23,
+                59,
+                59,
+              );
+              dateMatch = transactionDate.isBefore(
+                end.add(const Duration(seconds: 1)),
+              );
+            }
+          }
+
+          return typeMatch && dateMatch;
         }).toList();
 
         if (transactions.isEmpty) {
