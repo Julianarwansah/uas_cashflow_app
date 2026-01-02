@@ -74,6 +74,7 @@ class _CashflowScreenState extends State<CashflowScreen>
           children: [
             _buildHeader(),
             _buildFilterTabs(),
+            _buildDateFilterSection(),
             Expanded(child: _buildTransactionList()),
           ],
         ),
