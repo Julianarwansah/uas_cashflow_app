@@ -114,16 +114,6 @@ class _CashflowScreenState extends State<CashflowScreen>
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: AppTheme.softShadow,
-                ),
-                child: Icon(Icons.search_rounded, color: AppTheme.accentBlue),
-              ),
             ],
           ),
         ],
