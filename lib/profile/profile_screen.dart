@@ -44,7 +44,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Fungsi untuk menampilkan informasi Team (About)
   void _showAboutTeam(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -73,14 +72,16 @@ class ProfileScreen extends StatelessWidget {
             _buildAboutCard(
               name: "Julian Arwansyah",
               nim: "1123150112",
-              motivation: "Jangan menunggu kesempatan, ciptakanlah kesempatan itu sendiri.",
+              motivation:
+                  "Jangan menunggu kesempatan, ciptakanlah kesempatan itu sendiri.",
               color: AppTheme.accentBlue,
             ),
             const SizedBox(height: 12),
             _buildAboutCard(
               name: "Indra Nurul Kusuma",
               nim: "1123150032",
-              motivation: "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
+              motivation:
+                  "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
               color: Colors.orange,
             ),
             const SizedBox(height: 30),
@@ -99,9 +100,9 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.05),
+        color: color.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,14 +111,22 @@ class ProfileScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: color,
-                child: Text(name[0], style: const TextStyle(color: Colors.white)),
+                child: Text(
+                  name[0],
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(name, style: AppTheme.titleMedium),
-                  Text("NIM: $nim", style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    "NIM: $nim",
+                    style: AppTheme.bodyMedium.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -211,10 +220,10 @@ class ProfileScreen extends StatelessWidget {
             width: 72,
             height: 72,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: Colors.white.withOpacity(0.3),
+                color: Colors.white.withValues(alpha: 0.3),
                 width: 2,
               ),
             ),
@@ -223,7 +232,11 @@ class ProfileScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18),
                     child: Image.network(user!.photoURL!, fit: BoxFit.cover),
                   )
-                : const Icon(Icons.person_rounded, color: Colors.white, size: 36),
+                : const Icon(
+                    Icons.person_rounded,
+                    color: Colors.white,
+                    size: 36,
+                  ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -238,7 +251,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   user?.email ?? 'user@example.com',
                   style: AppTheme.bodyMedium.copyWith(
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                   ),
                 ),
               ],
@@ -272,7 +285,6 @@ class ProfileScreen extends StatelessWidget {
             },
           ),
           const Divider(height: 1, indent: 70),
-          // MODIFIKASI: Penambahan Menu About
           _buildMenuItem(
             icon: Icons.info_outline_rounded,
             title: 'Tentang Kami',
@@ -307,7 +319,7 @@ class ProfileScreen extends StatelessWidget {
         width: 48,
         height: 48,
         decoration: BoxDecoration(
-          color: (iconColor ?? AppTheme.accentBlue).withOpacity(0.1),
+          color: (iconColor ?? AppTheme.accentBlue).withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(14),
         ),
         child: Icon(icon, color: iconColor ?? AppTheme.accentBlue),
