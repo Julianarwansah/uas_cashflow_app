@@ -358,8 +358,12 @@ class _CashflowScreenState extends State<CashflowScreen>
         final transactions = allTransactions.where((t) {
           // Type filter (All/Income/Expense)
           bool typeMatch = true;
-          if (_selectedFilter == 1) return t.type == TransactionType.income;
-          if (_selectedFilter == 2) return t.type == TransactionType.expense;
+          if (_selectedFilter == 1) {
+            typeMatch = t.type == TransactionType.income;
+          }
+          if (_selectedFilter == 2) {
+            typeMatch = t.type == TransactionType.expense;
+          }
 
           // Date filter
           bool dateMatch = true;
