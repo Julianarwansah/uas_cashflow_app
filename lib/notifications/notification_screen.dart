@@ -84,6 +84,69 @@ class _NotificationScreenState extends State<NotificationScreen> {
         .delete();
   }
 
+  Future<void> _deleteAllNotifications() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final batch = FirebaseFirestore.instance.batch();
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('notifications')
+        .get();
+
+    for (var doc in snapshot.docs) {
+      batch.delete(doc.reference);
+    }
+
+    await batch.commit();
+  }
+
+  void _showDeleteAllConfirmation() {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text('Hapus Semua?', style: AppTheme.titleLarge),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus semua riwayat notifikasi? Tindakan ini tidak dapat dibatalkan.',
+          style: AppTheme.bodyMedium,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              'Batal',
+              style: AppTheme.labelLarge.copyWith(
+                color: AppTheme.textSecondary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              final scaffoldMessenger = ScaffoldMessenger.of(context);
+              Navigator.pop(dialogContext);
+              await _deleteAllNotifications();
+              if (mounted) {
+                scaffoldMessenger.showSnackBar(
+                  SnackBar(
+                    content: const Text('Semua notifikasi berhasil dihapus'),
+                    backgroundColor: AppTheme.incomeGreen,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              }
+            },
+            child: Text(
+              'Hapus',
+              style: AppTheme.labelLarge.copyWith(color: AppTheme.expenseRed),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   String _formatDate(DateTime date) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -137,6 +200,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
             onSelected: (value) {
               if (value == 'read_all') {
                 _markAllAsRead();
+              } else if (value == 'delete_all') {
+                _showDeleteAllConfirmation();
               }
             },
             itemBuilder: (context) => [
@@ -147,6 +212,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     Icon(Icons.done_all_rounded, color: AppTheme.accentBlue),
                     const SizedBox(width: 12),
                     Text('Tandai semua dibaca', style: AppTheme.bodyMedium),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 'delete_all',
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.delete_sweep_rounded,
+                      color: AppTheme.expenseRed,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      'Hapus semua',
+                      style: AppTheme.bodyMedium.copyWith(
+                        color: AppTheme.expenseRed,
+                      ),
+                    ),
                   ],
                 ),
               ),
