@@ -87,6 +87,20 @@ class IndraProfileScreen extends StatelessWidget {
             Text(title, style: AppTheme.bodyMedium.copyWith(color: Colors.grey)),
             Text(value, style: AppTheme.titleMedium),
           ],
+          Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: AppTheme.softShadow,
+              ),
+              child: Column(
+                children: [
+                   // Items will go here
+                ],
+              ),
+            ),
         ),
       ],
     );
