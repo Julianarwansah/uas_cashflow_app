@@ -81,13 +81,18 @@ class IndraProfileScreen extends StatelessWidget {
             const SizedBox(height: 32),
 
             
-    Widget _buildAboutCard({
-    required String name,
-    required String nim,
-    required String motivation,
-    required Color color,
-    VoidCallback? onTap, // New parameter
-  }) { ... }
+     _buildAboutCard(
+              name: "Indra Nurul Kusuma",
+              nim: "1123150032",
+              motivation: "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
+              color: Colors.orange,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const IndraProfileScreen()),
+                );
+              },
+            ),
   }) {
     return GestureDetector(
       onTap: onTap,
