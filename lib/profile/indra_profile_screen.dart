@@ -63,8 +63,38 @@ class IndraProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
+
+            Widget _buildDetailItem({
+    required IconData icon,
+    required String title,
+    required String value,
+    required Color color,
+  }) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: color),
         ),
+        const SizedBox(width: 16),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: AppTheme.bodyMedium.copyWith(color: Colors.grey)),
+            Text(value, style: AppTheme.titleMedium),
+          ],
+        ),
+      ],
+    );
+  }
+        ),
+        
       ),
     );
+    
   }
 }
