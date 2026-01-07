@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
+import '../theme/app_theme.dart'; // Pastikan path ini benar sesuai struktur foldermu
 
 class IndraProfileScreen extends StatelessWidget {
   const IndraProfileScreen({super.key});
@@ -19,7 +19,11 @@ class IndraProfileScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               boxShadow: AppTheme.softShadow,
             ),
-            child: const Icon(Icons.arrow_back_ios_new_rounded, size: 18, color: AppTheme.textPrimary),
+            child: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 18,
+              color: AppTheme.textPrimary,
+            ),
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -30,10 +34,11 @@ class IndraProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            // Mengganti Container awal dengan struktur Stack + ClipOval
+            
+            // --- BAGIAN FOTO PROFIL (Stack + ClipOval) ---
             Center(
               child: Container(
-                width: 180,
+                width: 180, // Ukuran lingkaran (Diameter)
                 height: 180,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -45,22 +50,38 @@ class IndraProfileScreen extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
+                      // Layer 1: Background Warna (Jika foto transparan)
                       Container(color: Colors.orange.shade100),
+
+                      // Layer 2: Icon Placeholder (Di tengah belakang foto)
                       const Center(
-                        child: Icon(Icons.person, size: 80, color: Colors.orange),
+                        child: Icon(
+                          Icons.person,
+                          size: 80, 
+                          color: Colors.orange,
+                        ),
                       ),
+
+                      // Layer 3: Foto Asli
                       Image.asset(
-                        'assets/images/indra.png',
+                        'assets/images/indra.png', // Pastikan nama file sesuai
                         fit: BoxFit.cover, 
-                        alignment: Alignment.topCenter,
-                        errorBuilder: (context, error, stackTrace) => Container(), 
+                        alignment: Alignment.topCenter, // Agar wajah tidak terpotong
+                        errorBuilder: (context, error, stackTrace) {
+                          // Jika error, tampilkan transparan agar icon di Layer 2 terlihat
+                          return Container(); 
+                        },
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-          const SizedBox(height: 24),
+            // ------------------------------------------
+
+            const SizedBox(height: 24),
+            
+            // Info Utama
             Text(
               "Indra Nurul Kusuma",
               style: AppTheme.headlineMedium,
@@ -78,51 +99,11 @@ class IndraProfileScreen extends StatelessWidget {
                 style: AppTheme.titleMedium.copyWith(color: Colors.orange[800]),
               ),
             ),
+
             const SizedBox(height: 32),
 
-            
-     _buildAboutCard(
-              name: "Indra Nurul Kusuma",
-              nim: "1123150032",
-              motivation: "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
-              color: Colors.orange,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const IndraProfileScreen()),
-                );
-              },
-            ),
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        // ... decoration code ...
-        child: Column(
-          children: [
-             Row(
-               children: [
-                 // ... avatar and text ...
-                 if (onTap != null) ...[ // Tanda panah jika bisa diklik
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios_rounded, size: 16, color: color),
-                 ]
-               ]
-             )
-             // ... motivation text ...
-          ]
-        )
-      )
-    );
-        ),
-        const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: AppTheme.bodyMedium.copyWith(color: Colors.grey)),
-            Text(value, style: AppTheme.titleMedium),
-          ],
-          Container(
+            // Detail Card
+            Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -132,15 +113,7 @@ class IndraProfileScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                   // Items will go here
-                ],
-              ),
-            ),
-        ),
-      ],
-    );
-  }
-  _buildDetailItem(
+                  _buildDetailItem(
                     icon: Icons.school_rounded,
                     title: "Universitas",
                     value: "Bina Sarana Global",
@@ -152,17 +125,21 @@ class IndraProfileScreen extends StatelessWidget {
                     title: "Peran",
                     value: "Mobile Developer",
                     color: Colors.purple,
-
                   ),
                   const Divider(height: 30),
                   _buildDetailItem(
                     icon: Icons.favorite_rounded,
                     title: "Hobi",
-                    value: "Mancing dan Strike",
+                    value: "Mancing & Strike!",
                     color: Colors.red,
                   ),
-        ),
-        const SizedBox(height: 24),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Motivasi
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(20),
@@ -177,11 +154,7 @@ class IndraProfileScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Text akan ditambahkan nanti
-                ],
-              ),
-            ),
-            const Icon(Icons.format_quote_rounded, color: Colors.white, size: 30),
+                  const Icon(Icons.format_quote_rounded, color: Colors.white, size: 30),
                   const SizedBox(height: 10),
                   Text(
                     "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
@@ -192,9 +165,41 @@ class IndraProfileScreen extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-        
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
-    
+  }
+
+  Widget _buildDetailItem({
+    required IconData icon,
+    required String title,
+    required String value,
+    required Color color,
+  }) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: color),
+        ),
+        const SizedBox(width: 16),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: AppTheme.bodyMedium.copyWith(color: Colors.grey)),
+            Text(value, style: AppTheme.titleMedium),
+          ],
+        ),
+      ],
+    );
   }
 }
