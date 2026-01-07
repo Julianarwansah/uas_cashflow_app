@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../theme/app_theme.dart';
 import '../notifications/notification_screen.dart';
 import 'edit_profile_screen.dart';
-import 'indra_profile_screen.dart'; // Tambahkan ini
+import 'indra_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
