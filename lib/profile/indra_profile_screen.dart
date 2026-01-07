@@ -127,6 +127,25 @@ class IndraProfileScreen extends StatelessWidget {
                     color: Colors.red,
                   ),
         ),
+        const SizedBox(height: 24),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.orange.shade400, Colors.orange.shade700],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: AppTheme.cardShadow,
+              ),
+              child: Column(
+                children: [
+                  // Text akan ditambahkan nanti
+                ],
+              ),
+            ),
         
       ),
     );
