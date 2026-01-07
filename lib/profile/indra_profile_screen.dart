@@ -105,6 +105,19 @@ class IndraProfileScreen extends StatelessWidget {
       ],
     );
   }
+  _buildDetailItem(
+                    icon: Icons.school_rounded,
+                    title: "Universitas",
+                    value: "Universitas Dian Nusantara",
+                    color: Colors.blue,
+                  ),
+                  const Divider(height: 30),
+                  _buildDetailItem(
+                    icon: Icons.code_rounded,
+                    title: "Peran",
+                    value: "Mobile Developer",
+                    color: Colors.purple,
+                  ),
         ),
         
       ),
