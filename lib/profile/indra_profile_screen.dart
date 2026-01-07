@@ -80,11 +80,14 @@ class IndraProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32),
 
-            Widget _buildDetailItem({
-    required IconData icon,
-    required String title,
-    required String value,
+            
+    Widget _buildAboutCard({
+    required String name,
+    required String nim,
+    required String motivation,
     required Color color,
+    VoidCallback? onTap, // New parameter
+  }) { ... }
   }) {
     return Row(
       children: [
