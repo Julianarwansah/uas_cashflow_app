@@ -146,6 +146,17 @@ class IndraProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
+            const Icon(Icons.format_quote_rounded, color: Colors.white, size: 30),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
+                    textAlign: TextAlign.center,
+                    style: AppTheme.bodyMedium.copyWith(
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 16,
+                    ),
+                  ),
         
       ),
     );
