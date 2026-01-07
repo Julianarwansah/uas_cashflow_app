@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../theme/app_theme.dart';
 import '../notifications/notification_screen.dart';
 import 'edit_profile_screen.dart';
+import 'indra_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -44,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  void _showAboutTeam(BuildContext context) {
+ void _showAboutTeam(BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -69,6 +70,7 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Text("About Team", style: AppTheme.titleLarge),
             const SizedBox(height: 20),
+            // Kartu Julian (Tidak ada aksi klik)
             _buildAboutCard(
               name: "Julian Arwansyah",
               nim: "1123150112",
@@ -77,12 +79,24 @@ class ProfileScreen extends StatelessWidget {
               color: AppTheme.accentBlue,
             ),
             const SizedBox(height: 12),
+            // Kartu Indra (DENGAN AKSI KLIK)
             _buildAboutCard(
               name: "Indra Nurul Kusuma",
               nim: "1123150032",
               motivation:
                   "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan setiap hari.",
               color: Colors.orange,
+              // --- INI BAGIAN YANG DITAMBAHKAN ---
+              onTap: () {
+                // Navigasi ke halaman detail Indra
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const IndraProfileScreen(),
+                  ),
+                );
+              },
+              // -----------------------------------
             ),
             const SizedBox(height: 30),
           ],
@@ -92,12 +106,15 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildAboutCard({
-    required String name,
-    required String nim,
-    required String motivation,
-    required Color color,
-  }) {
-    return Container(
+  required String name,
+  required String nim,
+  required String motivation,
+  required Color color,
+  VoidCallback? onTap, // Tambahkan parameter ini
+}) {
+  return GestureDetector( // Bungkus Container dengan GestureDetector
+    onTap: onTap,
+    child: Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.05),
@@ -129,6 +146,11 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              // Indikator panah opsional agar user tahu ini bisa diklik
+              if (onTap != null) ...[
+                const Spacer(),
+                Icon(Icons.arrow_forward_ios_rounded, size: 16, color: color),
+              ]
             ],
           ),
           const SizedBox(height: 12),
@@ -138,8 +160,9 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   String _getDisplayName(User? user) {
     if (user == null) return 'Pengguna';

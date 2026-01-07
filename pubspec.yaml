@@ -79,6 +79,7 @@ flutter:
     - assets/animation/Finance_guru.json
     - assets/animation/Payment.json
     - assets/images/logo_global1.png
+    - assets/images/indra.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
