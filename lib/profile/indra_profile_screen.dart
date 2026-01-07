@@ -30,6 +30,7 @@ class IndraProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
+            // Mengganti Container awal dengan struktur Stack + ClipOval
             Center(
               child: Container(
                 width: 180,
@@ -38,12 +39,27 @@ class IndraProfileScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.white,
                   boxShadow: AppTheme.softShadow,
+                  border: Border.all(color: Colors.white, width: 4), 
                 ),
-                // Placeholder content sementara
-                child: const Icon(Icons.person, size: 80, color: Colors.grey),
+                child: ClipOval(
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(color: Colors.orange.shade100),
+                      const Center(
+                        child: Icon(Icons.person, size: 80, color: Colors.orange),
+                      ),
+                      Image.asset(
+                        'assets/images/indra.png',
+                        fit: BoxFit.cover, 
+                        alignment: Alignment.topCenter,
+                        errorBuilder: (context, error, stackTrace) => Container(), 
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ],
           const SizedBox(height: 24),
             Text(
               "Indra Nurul Kusuma",
