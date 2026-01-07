@@ -108,7 +108,7 @@ class IndraProfileScreen extends StatelessWidget {
   _buildDetailItem(
                     icon: Icons.school_rounded,
                     title: "Universitas",
-                    value: "Universitas Dian Nusantara",
+                    value: "Bina Sarana Global",
                     color: Colors.blue,
                   ),
                   const Divider(height: 30),
@@ -117,6 +117,14 @@ class IndraProfileScreen extends StatelessWidget {
                     title: "Peran",
                     value: "Mobile Developer",
                     color: Colors.purple,
+
+                  ),
+                  const Divider(height: 30),
+                  _buildDetailItem(
+                    icon: Icons.favorite_rounded,
+                    title: "Hobi",
+                    value: "Mancing dan Strike",
+                    color: Colors.red,
                   ),
         ),
         
