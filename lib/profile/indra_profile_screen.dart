@@ -44,6 +44,25 @@ class IndraProfileScreen extends StatelessWidget {
               ),
             ),
           ],
+          const SizedBox(height: 24),
+            Text(
+              "Indra Nurul Kusuma",
+              style: AppTheme.headlineMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.orange.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                "NIM: 1123150032",
+                style: AppTheme.titleMedium.copyWith(color: Colors.orange[800]),
+              ),
+            ),
+            const SizedBox(height: 32),
         ),
       ),
     );
