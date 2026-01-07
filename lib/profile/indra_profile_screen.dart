@@ -26,7 +26,26 @@ class IndraProfileScreen extends StatelessWidget {
         title: Text('Detail Anggota', style: AppTheme.titleLarge),
         centerTitle: true,
       ),
-      body: Container(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Center(
+              child: Container(
+                width: 180,
+                height: 180,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: AppTheme.softShadow,
+                ),
+                // Placeholder content sementara
+                child: const Icon(Icons.person, size: 80, color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
