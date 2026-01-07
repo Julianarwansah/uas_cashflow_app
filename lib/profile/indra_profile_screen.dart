@@ -89,15 +89,26 @@ class IndraProfileScreen extends StatelessWidget {
     VoidCallback? onTap, // New parameter
   }) { ... }
   }) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(icon, color: color),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        // ... decoration code ...
+        child: Column(
+          children: [
+             Row(
+               children: [
+                 // ... avatar and text ...
+                 if (onTap != null) ...[ // Tanda panah jika bisa diklik
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded, size: 16, color: color),
+                 ]
+               ]
+             )
+             // ... motivation text ...
+          ]
+        )
+      )
+    );
         ),
         const SizedBox(width: 16),
         Column(
