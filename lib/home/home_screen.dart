@@ -152,8 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Selamat Datang! 👋', style: AppTheme.bodyMedium),
-            const SizedBox(height: 4),
             Text('Dashboard Keuangan', style: AppTheme.headlineMedium),
           ],
         ),
