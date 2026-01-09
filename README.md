@@ -54,7 +54,7 @@ Dengan Cashflow, pengguna dapat memantau arus kas harian, melihat laporan keuang
 
 Lihat video demo aplikasi kami untuk melihat semua fitur dalam aksi!
 
-**[Watch Full Demo on YouTube](https://youtube.com/watch?v=dQw4w9WgXcQ)**
+**[Watch Full Demo on YouTube](https://youtu.be/kXP5mJXHBXA)**
 
 Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/1234567890/view)**
 
