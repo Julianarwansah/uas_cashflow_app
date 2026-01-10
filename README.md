@@ -146,11 +146,13 @@ lib/
 ├── cashflow/                 # fitur utama pencatatan keuangan
 │   ├── cashflow_screen.dart
 │   └── transaction_form_screen.dart
-├── config/                   # Folder konfigurasi aplikasi
+├── config/                   # konfigurasi aplikasi
 │   └── firebase_options.dart
-├── home/                           # Folder fitur halaman utama
+├── home/                     # fitur halaman utama
 │   └── home_screen.dart
-│  
+├── models/                   # representasi data (Blueprint objek)
+│   ├── app_notification.dart
+│   └── transaction.dart
 │  
 │   ├── home/
 │   ├── profile/
