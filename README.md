@@ -57,12 +57,6 @@ Dengan Cashflow, pengguna dapat memantau arus kas harian, melihat laporan keuang
   <img src="assets/readme/aboutind.jpeg" alt="aboutind" width="200"/>
 </div>
 
-<div align="center">
-  <img src="screenshots/note_detail.png" alt="Note Detail" width="200"/>
-  <img src="screenshots/search.png" alt="Search" width="200"/>
-  <img src="screenshots/category.png" alt="Category" width="200"/>
-  <img src="screenshots/settings.png" alt="Settings" width="200"/>
-</div>
 
 ## Demo Video
 
