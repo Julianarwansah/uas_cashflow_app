@@ -164,6 +164,11 @@ lib/
 │   └── profile_screen.dart
 ├── services/                 # logika bisnis & koneksi backend
 │   └── notification_service.dart
+├── splash/                   # layar pembuka (Intro/Onboarding)
+│   ├── splash_screen_1.dart
+│   ├── splash_screen_2.dart
+│   ├── splash_screen_3.dart
+│   └── splash_screen_4.dart
 
 │   ├── home/
 │   ├── profile/
