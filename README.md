@@ -153,9 +153,10 @@ lib/
 ├── models/                   # representasi data (Blueprint objek)
 │   ├── app_notification.dart
 │   └── transaction.dart
-├── navigation/               # Folder pengaturan navigasi/rute halaman
+├── navigation/               # pengaturan navigasi/rute halaman
 │   └── main_navigation.dart
-
+├── notifications/            # tampilan fitur notifikasi
+│   └── notification_screen.dart
 
 
 
