@@ -146,11 +146,11 @@ lib/
 ├── cashflow/                 # fitur utama pencatatan keuangan
 │   ├── cashflow_screen.dart
 │   └── transaction_form_screen.dart
-├── screens/                  # UI Screens
-│   ├── splash/
-│   ├── auth/
-│   │   ├── login_screen.dart
-│   │   └── register_screen.dart
+├── config/                   # Folder konfigurasi aplikasi
+│   ├── firebase_options.dart
+│   
+│  │
+│  
 │   ├── home/
 │   ├── profile/
 │   └── settings/
