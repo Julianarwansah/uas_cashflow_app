@@ -153,7 +153,12 @@ lib/
 ├── models/                   # representasi data (Blueprint objek)
 │   ├── app_notification.dart
 │   └── transaction.dart
-│  
+├── navigation/               # Folder pengaturan navigasi/rute halaman
+│   └── main_navigation.dart
+
+
+
+
 │   ├── home/
 │   ├── profile/
 │   └── settings/
