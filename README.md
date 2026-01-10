@@ -38,8 +38,8 @@ Dengan Cashflow, pengguna dapat memantau arus kas harian, melihat laporan keuang
 
 <div align="center">
   <img src="assets/readme/splash1.jpeg" alt="Splash Screen1" width="200"/>
-   <img src="assets/readme/splash2.jpeg" alt="Splash Screen2" width="200"/>
-  <img src="screenshots/home_screen.png" alt="Home" width="200"/>
+  <img src="assets/readme/splash2.jpeg" alt="Splash Screen2" width="200"/>
+  <img src="assets/readme/splash3.jpeg" alt="Splash Screen3" width="200"/>
   <img src="screenshots/profile_screen.png" alt="Profile" width="200"/>
 </div>
 
