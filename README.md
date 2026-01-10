@@ -162,7 +162,8 @@ lib/
 │   ├── indra_profile_screen.dart
 │   ├── julian_profile_screen.dart
 │   └── profile_screen.dart
-
+├── services/                 # logika bisnis & koneksi backend
+│   └── notification_service.dart
 
 │   ├── home/
 │   ├── profile/
