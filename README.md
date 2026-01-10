@@ -49,6 +49,7 @@ Dengan Cashflow, pengguna dapat memantau arus kas harian, melihat laporan keuang
   <img src="assets/readme/pengeluaran.jpeg" alt="pengeluaran" width="200"/>
   <img src="assets/readme/filterkeluar.jpeg" alt="filterkeluar" width="200"/>
   <img src="assets/readme/filtermasuk.jpeg" alt="filtermasuk" width="200"/>
+  <img src="assets/readme/notifikasi.jpeg" alt="notifikasi" width="200"/>
 </div>
 
 <div align="center">
