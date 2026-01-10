@@ -140,9 +140,9 @@ flutter build apk --split-per-abi
 ```
 lib/
 ├── main.dart                 # Entry point
-├── app/
-│   ├── routes/              # App routing
-│   └── themes/              # App themes
+├── auth/                     # fitur Autentikasi (Login/Register)
+│   ├── login_screen.dart              
+│   └── register_screen.dart  
 ├── models/                   # Data models
 │   ├── user.dart
 │   └── category.dart
