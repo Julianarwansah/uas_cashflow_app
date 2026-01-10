@@ -143,9 +143,9 @@ lib/
 ├── auth/                     # fitur Autentikasi (Login/Register)
 │   ├── login_screen.dart              
 │   └── register_screen.dart  
-├── models/                   # Data models
-│   ├── user.dart
-│   └── category.dart
+├── cashflow/                 # fitur utama pencatatan keuangan
+│   ├── cashflow_screen.dart
+│   └── transaction_form_screen.dart
 ├── screens/                  # UI Screens
 │   ├── splash/
 │   ├── auth/
