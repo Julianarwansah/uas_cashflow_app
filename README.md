@@ -157,7 +157,11 @@ lib/
 │   └── main_navigation.dart
 ├── notifications/            # tampilan fitur notifikasi
 │   └── notification_screen.dart
-
+├── profile/                  # fitur profil pengguna
+│   ├── edit_profile_screen.dart
+│   ├── indra_profile_screen.dart
+│   ├── julian_profile_screen.dart
+│   └── profile_screen.dart
 
 
 │   ├── home/
