@@ -101,8 +101,8 @@ Pastikan Anda sudah menginstall:
 
 1. Clone repository
 ```bash
-git clone https://github.com/yourusername/notes-app.git
-cd notes-app
+git clone https://github.com/Julianarwansah/uas_cashflow_app.git
+cd uas_cashflow_app
 ```
 
 2. Install dependencies
