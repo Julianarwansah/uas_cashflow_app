@@ -147,9 +147,10 @@ lib/
 │   ├── cashflow_screen.dart
 │   └── transaction_form_screen.dart
 ├── config/                   # Folder konfigurasi aplikasi
-│   ├── firebase_options.dart
-│   
-│  │
+│   └── firebase_options.dart
+├── home/                           # Folder fitur halaman utama
+│   └── home_screen.dart
+│  
 │  
 │   ├── home/
 │   ├── profile/
