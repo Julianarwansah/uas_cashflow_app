@@ -169,6 +169,8 @@ lib/
 │   ├── splash_screen_2.dart
 │   ├── splash_screen_3.dart
 │   └── splash_screen_4.dart
+│── theme/                    # tema tampilan aplikasi
+│   └── app_theme.dart
 
 │   ├── home/
 │   ├── profile/
