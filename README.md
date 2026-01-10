@@ -171,16 +171,8 @@ lib/
 │   └── splash_screen_4.dart
 │── theme/                    # tema tampilan aplikasi
 │   └── app_theme.dart
+├── firebase_options.dart
 
-│   ├── home/
-│   ├── profile/
-│   └── settings/
-├── widgets/                  # Reusable widgets
-├── services/                 # Business logic
-│   ├── auth_service.dart
-│   ├── database_service.dart
-│   └── notification_service.dart
-└── utils/                    # Utilities & helpers
 ```
 
 ## Authentication Flow
