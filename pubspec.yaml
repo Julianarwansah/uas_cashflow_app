@@ -60,7 +60,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
   image_path: "assets/images/logoapp.png"
   min_sdk_android: 21
@@ -86,6 +86,7 @@ flutter:
     - assets/animation/Finance_guru.json
     - assets/animation/Payment.json
     - assets/images/logo_global1.png
+    - assets/images/logoapp.png
     - assets/images/indra.png
     - assets/images/juli.jpg
 

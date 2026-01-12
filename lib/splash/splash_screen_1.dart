@@ -85,7 +85,7 @@ class _SplashScreen1State extends State<SplashScreen1>
                     // Pastikan path 'assets/images/logo_global.png' sesuai
                     // dengan lokasi file Anda dan sudah didaftarkan di pubspec.yaml
                     child: Image.asset(
-                      'assets/images/logo_global1.png',
+                      'assets/images/logoapp.png',
                       fit: BoxFit.contain, // Agar gambar pas di dalam kotaknya
                     ),
                   ),
